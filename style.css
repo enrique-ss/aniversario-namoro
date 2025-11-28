@@ -66,6 +66,7 @@ body {
     cursor: pointer;
     letter-spacing: 2px;
     transition: transform 0.2s ease;
+    animation: textBeatSlow 3s ease-in-out infinite;
 }
 
 .countdown:hover {
@@ -131,7 +132,7 @@ h1 {
         transform: translateY(0px) scale(1);
     }
     50% {
-        transform: translateY(-15px) scale(1.05);
+        transform: translateY(-15px) scale(1.15);
     }
 }
 
@@ -149,13 +150,13 @@ h1 {
         transform: translateY(0px) scale(1);
     }
     25% {
-        transform: translateY(-10px) scale(1.15);
+        transform: translateY(-10px) scale(1.25);
     }
     50% {
         transform: translateY(0px) scale(1);
     }
     75% {
-        transform: translateY(-10px) scale(1.15);
+        transform: translateY(-10px) scale(1.25);
     }
 }
 

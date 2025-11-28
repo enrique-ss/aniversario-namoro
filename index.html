@@ -11,7 +11,8 @@
         <img src="corrente.png" alt="Textura de corrente">
     </div>
     
-    <div class="container">
+    <!-- PRIMEIRA PÁGINA -->
+    <div class="container" id="firstPage">
         <div class="countdown-container">
             <div id="countdown" class="countdown"></div>
         </div>
@@ -22,6 +23,102 @@
         
         <h1>O CORAÇÃO</h1>
         <p class="subtitle">SÓ ENTRE SE FOR FICAR</p>
+    </div>
+
+    <!-- SEGUNDA PÁGINA -->
+    <div class="main-page" id="mainPage">
+        <div class="main-content">
+            <!-- Envelope -->
+            <div class="feature-card envelope-card" onclick="openLetter()">
+                <div class="envelope-icon">💌</div>
+            </div>
+
+            <!-- Grid 2 colunas -->
+            <div class="two-column-grid">
+                <!-- Oráculo -->
+                <div class="feature-card" onclick="openOracle()">
+                    <h2 class="feature-title">ORÁCULO</h2>
+                    <p class="feature-description">Descubra algo especial</p>
+                </div>
+
+                <!-- Galeria -->
+                <div class="feature-card" onclick="openGallery()">
+                    <h2 class="feature-title">GALERIA</h2>
+                    <p class="feature-description">Nossas memórias</p>
+                </div>
+
+                <!-- Playlist -->
+                <div class="feature-card" onclick="openPlaylist()">
+                    <h2 class="feature-title">PLAYLIST</h2>
+                    <p class="feature-description">Nossas músicas</p>
+                </div>
+
+                <!-- Mapa -->
+                <div class="feature-card" onclick="openMap()">
+                    <h2 class="feature-title">MAPA</h2>
+                    <p class="feature-description">Nossos lugares</p>
+                </div>
+            </div>
+
+            <!-- Cronômetro do relacionamento -->
+            <div class="feature-card timer-card">
+                <h2 class="feature-title">JUNTOS HÁ</h2>
+                <div class="timer-display" id="relationshipTimer"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODALS -->
+    <div class="modal" id="letterModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('letterModal')">✕</span>
+            <div class="letter-content">
+                <p>Meu amor,</p>
+                <br>
+                <p>Cada dia ao seu lado é uma nova página da nossa história. Você trouxe luz para os meus dias mais escuros e transformou momentos simples em memórias inesquecíveis.</p>
+                <br>
+                <p>Este espaço é nosso, onde guardamos tudo aquilo que nos faz únicos. Cada foto, cada música, cada lugar... tudo tem um pedacinho do nosso amor.</p>
+                <br>
+                <p>Te amo mais do que as palavras podem expressar.</p>
+                <br>
+                <p style="text-align: right;">Para sempre seu ❤️</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="oracleModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('oracleModal')">✕</span>
+            <div class="oracle-content" id="oracleText"></div>
+        </div>
+    </div>
+
+    <div class="modal" id="galleryModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('galleryModal')">✕</span>
+            <h2 class="feature-title" style="text-align: center; margin-bottom: 20px;">NOSSA GALERIA</h2>
+            <div class="gallery-grid" id="galleryGrid"></div>
+        </div>
+    </div>
+
+    <div class="modal" id="playlistModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('playlistModal')">✕</span>
+            <h2 class="feature-title" style="text-align: center; margin-bottom: 20px;">NOSSA PLAYLIST</h2>
+            <div class="letter-content">
+                <p style="text-align: center;">Em breve você poderá adicionar suas músicas especiais aqui! 🎵</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="mapModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('mapModal')">✕</span>
+            <h2 class="feature-title" style="text-align: center; margin-bottom: 20px;">NOSSOS LUGARES</h2>
+            <div class="letter-content">
+                <p style="text-align: center;">Em breve você poderá marcar os lugares especiais da nossa história! 📍</p>
+            </div>
+        </div>
     </div>
 
     <script src="script.js"></script>

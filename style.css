@@ -40,6 +40,42 @@ body {
     filter: brightness(1.4);
 }
 
+/* Elementos flutuantes */
+.floating-element {
+    position: fixed;
+    font-size: 2.5rem;
+    pointer-events: none;
+    z-index: 1;
+    bottom: -100px;
+    opacity: 0.2; /* ADICIONE ESTA LINHA */
+    animation: floatUp linear infinite;
+}
+
+.blood-drop {
+    position: fixed;
+    width: 8px; /* MODIFICADO: era 4px */
+    height: 30px; /* MODIFICADO: era 20px */
+    background: linear-gradient(180deg, #8B0000 0%, #4B0000 100%);
+    border-radius: 0 0 50% 50%;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.7;
+    top: -100px;
+    animation: dropDown linear infinite;
+}
+
+.blood-drop::before {
+    content: '';
+    position: absolute;
+    top: -6px; /* MODIFICADO: era -4px */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10px; /* MODIFICADO: era 6px */
+    height: 10px; /* MODIFICADO: era 6px */
+    background: #8B0000;
+    border-radius: 50%;
+}
+
 /* PRIMEIRA PÁGINA */
 .container {
     text-align: center;
@@ -330,6 +366,7 @@ h1 {
     object-fit: cover;
 }
 
+/* ANIMAÇÕES */
 @keyframes floatSlow {
     0%, 100% {
         transform: translateY(0px) scale(1);
@@ -369,6 +406,28 @@ h1 {
     }
     to {
         opacity: 1;
+    }
+}
+
+@keyframes floatUp {
+    0% {
+        bottom: -100px;
+        opacity: 0.2; /* MODIFICADO */
+    }
+    100% {
+        bottom: 100vh;
+        opacity: 0.2; /* MODIFICADO: era 0 */
+    }
+}
+
+@keyframes dropDown {
+    0% {
+        top: -100px;
+        opacity: 0.5;
+    }
+    100% {
+        top: 100vh;
+        opacity: 0.2;
     }
 }
 

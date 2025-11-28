@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -10,6 +11,10 @@
     <div class="background-texture">
         <img src="corrente.png" alt="Textura de corrente">
     </div>
+
+    <!-- Elementos flutuantes -->
+    <div id="floatingContainer"></div>
+    <div id="bloodContainer"></div>
     
     <!-- PRIMEIRA PÁGINA -->
     <div class="container" id="firstPage">
@@ -37,32 +42,32 @@
             <div class="two-column-grid">
                 <!-- Oráculo -->
                 <div class="feature-card" onclick="openOracle()">
-                    <h2 class="feature-title">ORÁCULO</h2>
+                    <h2 class="feature-title">Oráculo</h2>
                     <p class="feature-description">Descubra algo especial</p>
                 </div>
 
                 <!-- Galeria -->
                 <div class="feature-card" onclick="openGallery()">
-                    <h2 class="feature-title">GALERIA</h2>
+                    <h2 class="feature-title">Memórias</h2>
                     <p class="feature-description">Nossas memórias</p>
                 </div>
 
                 <!-- Playlist -->
                 <div class="feature-card" onclick="openPlaylist()">
-                    <h2 class="feature-title">PLAYLIST</h2>
+                    <h2 class="feature-title">Sinfonias</h2>
                     <p class="feature-description">Nossas músicas</p>
                 </div>
 
                 <!-- Mapa -->
                 <div class="feature-card" onclick="openMap()">
-                    <h2 class="feature-title">MAPA</h2>
+                    <h2 class="feature-title">Mapa</h2>
                     <p class="feature-description">Nossos lugares</p>
                 </div>
             </div>
 
             <!-- Cronômetro do relacionamento -->
             <div class="feature-card timer-card">
-                <h2 class="feature-title">JUNTOS HÁ</h2>
+                <h2 class="feature-title">Selados à eternidade há</h2>
                 <div class="timer-display" id="relationshipTimer"></div>
             </div>
         </div>

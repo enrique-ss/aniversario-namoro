@@ -198,7 +198,7 @@ updateRelationshipTimer();
 heart.addEventListener('click', function() {
     const now = new Date().getTime();
     
-    if (now > targetDate) {
+    if (now < targetDate) {
         heart.classList.add('beating');
         
         setTimeout(() => {

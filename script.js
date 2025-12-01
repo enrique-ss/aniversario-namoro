@@ -274,3 +274,19 @@ document.querySelectorAll('.modal').forEach(modal => {
         }
     });
 });
+
+/*
+mudanças nas funcionalidades:
+
+o pacto a cada clique adicionara um elemento a mais na tela (sangue, morcego, coração ou coração preto), começará com 0 de cada elemento
+
+o oráculo terá 50 opções de fala
+
+memórias não mostraram todas as memórias, terá 50 memórias e vai mostrar aleatoriamente alguma
+
+sinfonia por enquanto nao mexe
+
+mapa funcionará igual memória
+
+terá mais de uma opção de carta. serão 10 e tambem mostrar uma alaeatoria cada vez
+*/

@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <body>
     <div class="background-texture">
         <img src="corrente.png" alt="Textura de corrente">
     </div>
@@ -32,46 +31,67 @@
     <!-- SEGUNDA PÁGINA -->
     <div class="main-page" id="mainPage">
         <div class="main-content">
-            <h2 class="page-title">Dentro do Coração</h2>
-            <p class="page-subtitle">NÃO TEM MAIS VOLTA</p>
+            <!-- Título com saudação dinâmica -->
+            <div class="gothic-header">
+                <h2 class="page-title">DENTRO DO CORAÇÃO</h2>
+                <p class="page-subtitle">Não tem mais Volta</p>
+                <p class="time-greeting" id="timeGreeting"></p>
+            </div>
             
+            <!-- Envelope minimalista -->
             <div class="feature-card envelope-card" onclick="openLetter()">
                 <img src="envelope.png" alt="Envelope Selado" class="envelope-image">
             </div>
 
-            <div class="two-column-grid">
-                <div class="feature-card" onclick="openOracle()">
+            <!-- Botão Pacto de Sangue -->
+            <div class="feature-card pact-card" onclick="reinforcePact()">
+                <img src="heart.png" alt="Coração" class="pact-heart-icon">
+                <h2 class="feature-title">Pactos</h2>
+                <p class="feature-description">Reforce o pacto de sangue</p>
+                <p class="pact-counter" id="pactCounter">O pacto de sangue foi reforçado 0 vezes</p>
+            </div>
+
+            <!-- Grid de cards -->
+            <div class="cards-grid">
+                <div class="feature-card gothic-card" onclick="openOracle()">
+                    <img src="oraculo.png" alt="Oráculo" class="gothic-icon-img">
                     <h2 class="feature-title">Oráculo</h2>
                     <p class="feature-description">Descubra algo especial</p>
                 </div>
 
-                <div class="feature-card" onclick="openGallery()">
+                <div class="feature-card gothic-card" onclick="openGallery()">
+                    <img src="fotos.png" alt="Memórias" class="gothic-icon-img">
                     <h2 class="feature-title">Memórias</h2>
                     <p class="feature-description">Nossas memórias</p>
                 </div>
 
-                <div class="feature-card" onclick="openPlaylist()">
+                <div class="feature-card gothic-card" onclick="openPlaylist()">
+                    <img src="musica.png" alt="Sinfonias" class="gothic-icon-img">
                     <h2 class="feature-title">Sinfonias</h2>
                     <p class="feature-description">Nossas músicas</p>
                 </div>
 
-                <div class="feature-card" onclick="openMap()">
+                <div class="feature-card gothic-card" onclick="openMap()">
+                    <img src="local.png" alt="Mapa" class="gothic-icon-img">
                     <h2 class="feature-title">Mapa</h2>
                     <p class="feature-description">Nossos lugares</p>
                 </div>
             </div>
 
-            <div class="feature-card timer-card">
+            <!-- Cronômetro minimalista -->
+            <div class="timer-card">
                 <h2 class="feature-title">Selados à eternidade há</h2>
                 <div class="timer-display" id="relationshipTimer"></div>
+                <p class="visit-counter" id="visitCounter"></p>
             </div>
         </div>
     </div>
 
     <!-- MODALS -->
     <div class="modal" id="letterModal">
-        <div class="modal-content">
+        <div class="modal-content gothic-modal">
             <span class="close-btn" onclick="closeModal('letterModal')">✕</span>
+            <div class="modal-header-ornament">⸸ ✦ ⸸</div>
             <div class="letter-content">
                 <p>Meu amor,</p>
                 <br>
@@ -83,41 +103,50 @@
                 <br>
                 <p style="text-align: right;">Para sempre seu ❤️</p>
             </div>
+            <div class="modal-footer-ornament">⸸ ✦ ⸸</div>
         </div>
     </div>
 
     <div class="modal" id="oracleModal">
-        <div class="modal-content">
+        <div class="modal-content gothic-modal">
             <span class="close-btn" onclick="closeModal('oracleModal')">✕</span>
+            <div class="modal-header-ornament">⸸ ✦ ⸸</div>
             <div class="oracle-content" id="oracleText"></div>
+            <div class="modal-footer-ornament">⸸ ✦ ⸸</div>
         </div>
     </div>
 
     <div class="modal" id="galleryModal">
-        <div class="modal-content">
+        <div class="modal-content gothic-modal">
             <span class="close-btn" onclick="closeModal('galleryModal')">✕</span>
+            <div class="modal-header-ornament">⸸ ✦ ⸸</div>
             <h2 class="feature-title" style="text-align: center; margin-bottom: 20px;">NOSSA GALERIA</h2>
             <div class="gallery-grid" id="galleryGrid"></div>
+            <div class="modal-footer-ornament">⸸ ✦ ⸸</div>
         </div>
     </div>
 
     <div class="modal" id="playlistModal">
-        <div class="modal-content">
+        <div class="modal-content gothic-modal">
             <span class="close-btn" onclick="closeModal('playlistModal')">✕</span>
+            <div class="modal-header-ornament">⸸ ✦ ⸸</div>
             <h2 class="feature-title" style="text-align: center; margin-bottom: 20px;">NOSSA PLAYLIST</h2>
             <div class="letter-content">
                 <p style="text-align: center;">Em breve você poderá adicionar suas músicas especiais aqui! 🎵</p>
             </div>
+            <div class="modal-footer-ornament">⸸ ✦ ⸸</div>
         </div>
     </div>
 
     <div class="modal" id="mapModal">
-        <div class="modal-content">
+        <div class="modal-content gothic-modal">
             <span class="close-btn" onclick="closeModal('mapModal')">✕</span>
+            <div class="modal-header-ornament">⸸ ✦ ⸸</div>
             <h2 class="feature-title" style="text-align: center; margin-bottom: 20px;">NOSSOS LUGARES</h2>
             <div class="letter-content">
                 <p style="text-align: center;">Em breve você poderá marcar os lugares especiais da nossa história! 📍</p>
             </div>
+            <div class="modal-footer-ornament">⸸ ✦ ⸸</div>
         </div>
     </div>
 

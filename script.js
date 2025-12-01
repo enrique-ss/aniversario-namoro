@@ -9,23 +9,113 @@ const targetDate = new Date('2025-12-04T00:00:00').getTime();
 // Data de início do relacionamento: 04/12/2023 às 15:00
 const relationshipStart = new Date('2023-12-04T15:00:00').getTime();
 
-// Frases do oráculo
-const oracleMessages = [
-    "Amo o seu sorriso que ilumina meu dia",
-    "Amo como você me faz rir nos momentos mais simples",
-    "Amo a forma carinhosa como você me olha",
-    "Amo sua força e determinação",
-    "Amo como você cuida de mim",
-    "Amo suas histórias e sua forma de contar",
-    "Amo seus abraços apertados",
-    "Amo como você me entende sem precisar falar",
-    "Amo sua risada contagiante",
-    "Amo como você torna tudo mais especial",
-    "Amo seus sonhos e como você luta por eles",
-    "Amo como você me faz sentir amado(a)",
-    "Amo sua paciência comigo",
-    "Amo como você transforma dias comuns em mágicos"
-];
+// Frases do oráculo baseadas no horário
+const oracleMessages = {
+    madrugada: [
+        "Mesmo nas horas mais escuras, você é minha luz",
+        "Penso em você até nas madrugadas mais silenciosas",
+        "Você deve estar dormindo... sonhe comigo ❤️",
+        "A noite é nossa testemunha silenciosa"
+    ],
+    manha: [
+        "Bom dia, meu amor! Que seu dia seja iluminado",
+        "Acordei pensando em você",
+        "Você é a razão dos meus dias começarem bem",
+        "Mais um dia para te amar mais"
+    ],
+    tarde: [
+        "Espero que seu dia esteja indo bem, meu amor",
+        "Amo o seu sorriso que ilumina meu dia",
+        "Você torna até as tardes comuns em especiais",
+        "Pensando em você neste momento"
+    ],
+    noite: [
+        "A noite fica mais bonita quando penso em você",
+        "Amo como você me faz sentir seguro(a) até na escuridão",
+        "Você é minha estrela nas noites mais escuras",
+        "Boa noite, meu amor eterno"
+    ]
+};
+
+// Saudações personalizadas por horário
+const timeGreetings = {
+    madrugada: "A escuridão nos protege...",
+    manha: "O sol nasce, mas você brilha mais...",
+    tarde: "O sol não brilha tanto quanto você...",
+    noite: "A lua testemunha nosso amor..."
+};
+
+// Contador de visitas
+let visitCount = 0;
+
+// Contador de pacto
+let pactCount = 0;
+
+// Carregar contador de visitas
+function loadVisitCount() {
+    const stored = localStorage.getItem('visitCount');
+    visitCount = stored ? parseInt(stored) : 0;
+    visitCount++;
+    localStorage.setItem('visitCount', visitCount);
+    updateVisitCounter();
+    
+    // Carregar contador de pacto
+    const storedPact = localStorage.getItem('pactCount');
+    pactCount = storedPact ? parseInt(storedPact) : 0;
+    updatePactCounter();
+}
+
+function updateVisitCounter() {
+    const counter = document.getElementById('visitCounter');
+    if (visitCount === 1) {
+        counter.textContent = "Primeira vez aqui... bem-vinda ao meu coração";
+    } else if (visitCount < 5) {
+        counter.textContent = `${visitCount}ª visita... cada vez mais perto`;
+    } else if (visitCount < 10) {
+        counter.textContent = `Você já veio ${visitCount} vezes... isso me deixa feliz`;
+    } else {
+        counter.textContent = `${visitCount} visitas... você não se cansa de mim ❤️`;
+    }
+}
+
+function updatePactCounter() {
+    const counter = document.getElementById('pactCounter');
+    if (pactCount === 0) {
+        counter.textContent = "O pacto de sangue foi reforçado 0 vezes";
+    } else if (pactCount === 1) {
+        counter.textContent = "O pacto de sangue foi reforçado 1 vez";
+    } else {
+        counter.textContent = `O pacto de sangue foi reforçado ${pactCount} vezes`;
+    }
+}
+
+function reinforcePact() {
+    pactCount++;
+    localStorage.setItem('pactCount', pactCount);
+    updatePactCounter();
+    
+    // Efeito visual
+    const pactCard = document.querySelector('.pact-card');
+    pactCard.classList.add('pact-reinforced');
+    setTimeout(() => {
+        pactCard.classList.remove('pact-reinforced');
+    }, 600);
+}
+
+// Determinar período do dia
+function getTimeOfDay() {
+    const hour = new Date().getHours();
+    if (hour >= 0 && hour < 6) return 'madrugada';
+    if (hour >= 6 && hour < 12) return 'manha';
+    if (hour >= 12 && hour < 18) return 'tarde';
+    return 'noite';
+}
+
+// Atualizar saudação
+function updateTimeGreeting() {
+    const period = getTimeOfDay();
+    document.getElementById('timeGreeting').textContent = timeGreetings[period];
+}
 
 // Criar elementos flutuantes (corações e morcegos)
 function createFloatingElements() {
@@ -37,7 +127,7 @@ function createFloatingElements() {
         element.className = 'floating-element';
         element.textContent = elements[Math.floor(Math.random() * elements.length)];
         element.style.left = Math.random() * 100 + '%';
-        element.style.animationDuration = (10 + Math.random() * 15) + 's'; // MODIFICADO: mais lento (era 15 + 10)
+        element.style.animationDuration = (10 + Math.random() * 15) + 's';
         element.style.animationDelay = Math.random() * 5 + 's';
         container.appendChild(element);
     }
@@ -47,11 +137,11 @@ function createFloatingElements() {
 function createBloodDrops() {
     const container = document.getElementById('bloodContainer');
     
-    for (let i = 0; i < 40; i++) { // MODIFICADO: mais gotas (era 20)
+    for (let i = 0; i < 40; i++) {
         const drop = document.createElement('div');
         drop.className = 'blood-drop';
         drop.style.left = Math.random() * 100 + '%';
-        drop.style.animationDuration = (5 + Math.random() * 15) + 's'; // MODIFICADO: mais lento (era 8 + 4)
+        drop.style.animationDuration = (5 + Math.random() * 15) + 's';
         drop.style.animationDelay = Math.random() * 5 + 's';
         container.appendChild(drop);
     }
@@ -90,6 +180,14 @@ function updateRelationshipTimer() {
         `${days} dias ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 }
 
+// Inicializar ao carregar a página principal
+function initMainPage() {
+    updateTimeGreeting();
+    loadVisitCount();
+    createFloatingElements();
+    createBloodDrops();
+}
+
 // Atualizar a cada segundo
 setInterval(updateCountdown, 1000);
 setInterval(updateRelationshipTimer, 1000);
@@ -118,9 +216,7 @@ heart.addEventListener('click', function() {
             firstPage.classList.add('hidden');
             setTimeout(() => {
                 mainPage.classList.add('active');
-                // ADICIONE ESTAS DUAS LINHAS AQUI:
-                createFloatingElements();
-                createBloodDrops();
+                initMainPage();
             }, 500);
         }, 1600);
     }
@@ -132,7 +228,9 @@ function openLetter() {
 }
 
 function openOracle() {
-    const randomMessage = oracleMessages[Math.floor(Math.random() * oracleMessages.length)];
+    const period = getTimeOfDay();
+    const messages = oracleMessages[period];
+    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
     document.getElementById('oracleText').textContent = randomMessage;
     document.getElementById('oracleModal').classList.add('active');
 }

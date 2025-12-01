@@ -214,7 +214,7 @@ h1 {
 
 .subtitle {
     font-size: 1.2rem;
-    color: var(--color-text-accent);
+    color: var(--color-red-secondary);
     font-weight: 400;
     letter-spacing: 2px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
@@ -403,16 +403,17 @@ h1 {
 }
 
 .feature-title {
-    font-size: 1.6rem;
-    color: var(--color-text-primary);
+    font-size: 2rem;
+    color: var(--color-red-secondary);
     letter-spacing: 3px;
     margin-bottom: var(--spacing-xs);
     filter: drop-shadow(var(--shadow-glow));
 }
 
 .feature-description {
-    font-size: 0.95rem;
-    color: var(--color-text-secondary);
+    font-size: 1.1rem;
+    color: var(--color-red-secondary);
+    opacity: 0.8;
     letter-spacing: 1px;
 }
 

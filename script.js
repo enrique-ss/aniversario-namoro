@@ -177,7 +177,7 @@ function updateRelationshipTimer() {
     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
     document.getElementById('relationshipTimer').textContent = 
-        `${days} dias ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        `${days} dias`;
 }
 
 // Inicializar ao carregar a página principal

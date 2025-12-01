@@ -289,4 +289,6 @@ sinfonia por enquanto nao mexe
 mapa funcionará igual memória
 
 terá mais de uma opção de carta. serão 10 e tambem mostrar uma alaeatoria cada vez
+
+centralizar melhor o site para mobile ajustando o site ao tamanho do dispositivo
 */

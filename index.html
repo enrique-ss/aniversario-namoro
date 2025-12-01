@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -8,11 +7,11 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <body>
     <div class="background-texture">
         <img src="corrente.png" alt="Textura de corrente">
     </div>
 
-    <!-- Elementos flutuantes -->
     <div id="floatingContainer"></div>
     <div id="bloodContainer"></div>
     
@@ -33,39 +32,35 @@
     <!-- SEGUNDA PÁGINA -->
     <div class="main-page" id="mainPage">
         <div class="main-content">
-            <!-- Envelope -->
+            <h2 class="page-title">Dentro do Coração</h2>
+            <p class="page-subtitle">NÃO TEM MAIS VOLTA</p>
+            
             <div class="feature-card envelope-card" onclick="openLetter()">
-                <div class="envelope-icon">💌</div>
+                <img src="envelope.png" alt="Envelope Selado" class="envelope-image">
             </div>
 
-            <!-- Grid 2 colunas -->
             <div class="two-column-grid">
-                <!-- Oráculo -->
                 <div class="feature-card" onclick="openOracle()">
                     <h2 class="feature-title">Oráculo</h2>
                     <p class="feature-description">Descubra algo especial</p>
                 </div>
 
-                <!-- Galeria -->
                 <div class="feature-card" onclick="openGallery()">
                     <h2 class="feature-title">Memórias</h2>
                     <p class="feature-description">Nossas memórias</p>
                 </div>
 
-                <!-- Playlist -->
                 <div class="feature-card" onclick="openPlaylist()">
                     <h2 class="feature-title">Sinfonias</h2>
                     <p class="feature-description">Nossas músicas</p>
                 </div>
 
-                <!-- Mapa -->
                 <div class="feature-card" onclick="openMap()">
                     <h2 class="feature-title">Mapa</h2>
                     <p class="feature-description">Nossos lugares</p>
                 </div>
             </div>
 
-            <!-- Cronômetro do relacionamento -->
             <div class="feature-card timer-card">
                 <h2 class="feature-title">Selados à eternidade há</h2>
                 <div class="timer-display" id="relationshipTimer"></div>

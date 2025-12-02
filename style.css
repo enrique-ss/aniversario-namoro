@@ -63,7 +63,7 @@
 }
 
 body {
-    font-family: 'Cloister Black', cursive;
+    font-family: 'Cloister Black', 'Georgia', serif;
     background: #000;
     min-height: 100vh;
     display: flex;
@@ -83,6 +83,7 @@ body {
     height: 100%;
     z-index: 0;
     overflow: hidden;
+    pointer-events: none;
 }
 
 .background-texture img {
@@ -93,24 +94,35 @@ body {
     filter: brightness(1.5);
 }
 
-.floating-element {
+#floatingContainer,
+#bloodContainer,
+#pactElementsContainer {
     position: fixed;
-    font-size: 2.5rem;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     pointer-events: none;
     z-index: 1;
+    overflow: hidden;
+}
+
+.floating-element {
+    position: absolute;
+    font-size: 2.5rem;
+    pointer-events: none;
     bottom: -100px;
     opacity: 0.25;
     animation: floatUp linear infinite;
 }
 
 .blood-drop {
-    position: fixed;
+    position: absolute;
     width: 8px;
-    height: var(--spacing-lg);
+    height: 30px;
     background: linear-gradient(180deg, var(--color-red-primary) 0%, var(--color-red-dark) 100%);
     border-radius: 0 0 50% 50%;
     pointer-events: none;
-    z-index: 1;
     opacity: 0.4;
     top: -100px;
     animation: dropDown linear infinite;
@@ -122,10 +134,18 @@ body {
     top: -6px;
     left: 50%;
     transform: translateX(-50%);
-    width: var(--spacing-xs);
-    height: var(--spacing-xs);
+    width: 10px;
+    height: 10px;
     background: var(--color-red-primary);
     border-radius: 50%;
+}
+
+.pact-element {
+    position: absolute;
+    font-size: 2rem;
+    pointer-events: none;
+    opacity: 0.3;
+    animation: floatUp linear infinite;
 }
 
 /* PRIMEIRA PÁGINA */
@@ -133,8 +153,9 @@ body {
     text-align: center;
     position: relative;
     z-index: 2;
-    padding: var(--spacing-xl);
+    padding: 40px 20px;
     max-width: 800px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -152,7 +173,7 @@ body {
     position: relative;
     text-align: center;
     z-index: 10;
-    margin-bottom: var(--spacing-2xl);
+    margin-bottom: 50px;
 }
 
 .countdown {
@@ -162,6 +183,7 @@ body {
     cursor: pointer;
     letter-spacing: 2px;
     animation: textBeatSlow 3s ease-in-out infinite;
+    transition: transform var(--transition-normal);
 }
 
 .countdown:hover {
@@ -169,9 +191,11 @@ body {
 }
 
 .heart-image {
-    width: 500px;
-    height: 500px;
-    margin: 0 auto var(--spacing-2xl);
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    aspect-ratio: 1;
+    margin: 0 auto 50px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -187,8 +211,8 @@ body {
 .heart-image::before {
     content: '';
     position: absolute;
-    width: 500px;
-    height: 500px;
+    width: 100%;
+    height: 100%;
     background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
     border-radius: 50%;
     z-index: -1;
@@ -206,7 +230,7 @@ h1 {
     color: var(--color-text-primary);
     font-weight: 400;
     letter-spacing: 3px;
-    margin-bottom: var(--spacing-sm);
+    margin-bottom: 15px;
     text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.9);
     animation: textBeatSlow 3s ease-in-out infinite;
     filter: drop-shadow(var(--shadow-glow));
@@ -232,7 +256,7 @@ h1 {
     z-index: 3;
     display: none;
     opacity: 0;
-    padding: var(--spacing-xl) var(--spacing-md);
+    padding: 40px 20px;
     overflow-y: auto;
 }
 
@@ -244,15 +268,16 @@ h1 {
 .main-content {
     max-width: 1000px;
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--spacing-2xl);
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    padding-bottom: 50px;
 }
 
 /* Header */
 .gothic-header {
     text-align: center;
-    padding: var(--spacing-xl) 0;
+    padding: 40px 0;
     border-bottom: 1px solid var(--color-border);
     position: relative;
 }
@@ -274,7 +299,7 @@ h1 {
     color: var(--color-text-accent);
     text-align: center;
     letter-spacing: 4px;
-    margin-top: var(--spacing-sm);
+    margin-top: 15px;
     font-weight: 400;
 }
 
@@ -283,7 +308,7 @@ h1 {
     color: var(--color-text-tertiary);
     text-align: center;
     letter-spacing: 2px;
-    margin-top: var(--spacing-xs);
+    margin-top: 10px;
     font-style: italic;
 }
 
@@ -292,7 +317,7 @@ h1 {
     background: linear-gradient(145deg, var(--color-bg-card), var(--color-bg-dark));
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
-    padding: var(--spacing-2xl);
+    padding: 50px 40px;
     cursor: pointer;
     transition: all var(--transition-normal);
     position: relative;
@@ -309,6 +334,7 @@ h1 {
     height: 100%;
     background: linear-gradient(90deg, transparent, rgba(185, 24, 24, 0.1), transparent);
     transition: left var(--transition-slow);
+    pointer-events: none;
 }
 
 .feature-card:hover::before {
@@ -331,14 +357,14 @@ h1 {
     width: 100px;
     height: 100px;
     object-fit: contain;
-    margin-bottom: var(--spacing-md);
+    margin: 0 auto 20px;
+    display: block;
     filter: drop-shadow(var(--shadow-white)) drop-shadow(var(--shadow-glow));
     animation: iconFloat 3s ease-in-out infinite;
 }
 
 /* Botão Pacto */
 .pact-card {
-    grid-column: 1;
     text-align: center;
     border: 2px solid var(--color-border-strong);
 }
@@ -347,7 +373,8 @@ h1 {
     width: 120px;
     height: 120px;
     object-fit: contain;
-    margin-bottom: var(--spacing-md);
+    margin: 0 auto 20px;
+    display: block;
     filter: drop-shadow(var(--shadow-white)) drop-shadow(var(--shadow-glow-strong));
     animation: heartbeatSlow 2s ease-in-out infinite;
     transition: all var(--transition-normal);
@@ -359,7 +386,7 @@ h1 {
 }
 
 .pact-counter {
-    margin-top: var(--spacing-md);
+    margin-top: 20px;
     font-size: 0.95rem;
     color: var(--color-text-secondary);
     letter-spacing: 1px;
@@ -375,11 +402,11 @@ h1 {
 
 /* Envelope */
 .envelope-card {
-    grid-column: 1;
     min-height: 300px;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 30px;
 }
 
 .envelope-image {
@@ -398,15 +425,15 @@ h1 {
 /* Grid de Cards */
 .cards-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-lg);
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
 }
 
 .feature-title {
     font-size: 2rem;
     color: var(--color-red-secondary);
     letter-spacing: 3px;
-    margin-bottom: var(--spacing-xs);
+    margin-bottom: 10px;
     filter: drop-shadow(var(--shadow-glow));
 }
 
@@ -419,17 +446,16 @@ h1 {
 
 /* Timer */
 .timer-card {
-    grid-column: 1 / -1;
     text-align: center;
     border-top: 1px solid var(--color-border);
-    padding-top: var(--spacing-2xl);
+    padding-top: 50px;
 }
 
 .timer-display {
     font-size: 2.8rem;
     color: var(--color-text-primary);
     filter: drop-shadow(var(--shadow-glow-intense));
-    margin: var(--spacing-md) 0;
+    margin: 20px 0;
     animation: textBeatSlow 3s ease-in-out infinite;
     letter-spacing: 3px;
 }
@@ -438,7 +464,7 @@ h1 {
     font-size: 0.9rem;
     color: var(--color-text-tertiary);
     text-align: center;
-    margin-top: var(--spacing-md);
+    margin-top: 20px;
     letter-spacing: 2px;
 }
 
@@ -454,7 +480,8 @@ h1 {
     z-index: 1000;
     align-items: center;
     justify-content: center;
-    padding: var(--spacing-md);
+    padding: 20px;
+    overflow-y: auto;
 }
 
 .modal.active {
@@ -466,7 +493,7 @@ h1 {
     background: linear-gradient(145deg, var(--color-bg-card), var(--color-bg-dark));
     border: 4px double var(--color-red-primary);
     border-radius: var(--radius-sm);
-    padding: var(--spacing-xl);
+    padding: 40px;
     max-width: 600px;
     width: 100%;
     max-height: 80vh;
@@ -475,6 +502,11 @@ h1 {
     box-shadow: 
         inset 0 0 30px rgba(185, 24, 24, 0.3),
         var(--shadow-lg);
+    margin: auto;
+}
+
+.gallery-modal {
+    max-width: 900px;
 }
 
 .gothic-modal::before,
@@ -496,14 +528,14 @@ h1 {
     font-size: 1.5rem;
     color: var(--color-red-primary);
     filter: drop-shadow(var(--shadow-glow));
-    margin: var(--spacing-md) 0;
-    letter-spacing: var(--spacing-md);
+    margin: 20px 0;
+    letter-spacing: 30px;
 }
 
 .close-btn {
     position: absolute;
-    top: var(--spacing-md);
-    right: var(--spacing-md);
+    top: 20px;
+    right: 20px;
     font-size: 2rem;
     color: var(--color-text-primary);
     cursor: pointer;
@@ -515,6 +547,7 @@ h1 {
     justify-content: center;
     border: 2px solid var(--color-border);
     background: rgba(0, 0, 0, 0.5);
+    z-index: 10;
 }
 
 .close-btn:hover {
@@ -536,21 +569,21 @@ h1 {
     color: var(--color-text-primary);
     text-align: center;
     line-height: 1.8;
-    padding: var(--spacing-md);
+    padding: 20px;
     filter: drop-shadow(var(--shadow-glow));
 }
 
 .gallery-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: var(--spacing-md);
-    padding: var(--spacing-md) 0;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px 0;
 }
 
 .polaroid {
     background: var(--color-bg-card);
-    padding: var(--spacing-sm);
-    padding-bottom: var(--spacing-2xl);
+    padding: 15px;
+    padding-bottom: 50px;
     box-shadow: var(--shadow-md);
     border: 2px solid var(--color-border);
     transform: rotate(0deg);
@@ -567,12 +600,13 @@ h1 {
     width: 100%;
     height: 200px;
     object-fit: cover;
+    display: block;
 }
 
 /* ANIMAÇÕES */
 @keyframes floatSlow {
     0%, 100% { transform: translateY(0px) scale(1); }
-    50% { transform: translateY(-15px) scale(1.15); }
+    50% { transform: translateY(-15px) scale(1.05); }
 }
 
 @keyframes textBeatSlow {
@@ -581,10 +615,10 @@ h1 {
 }
 
 @keyframes heartbeat {
-    0%, 100% { transform: translateY(0px) scale(1); }
-    25% { transform: translateY(-10px) scale(1.25); }
-    50% { transform: translateY(0px) scale(1); }
-    75% { transform: translateY(-10px) scale(1.25); }
+    0%, 100% { transform: scale(1); }
+    25% { transform: scale(1.25); }
+    50% { transform: scale(1); }
+    75% { transform: scale(1.25); }
 }
 
 @keyframes fadeIn {
@@ -593,13 +627,21 @@ h1 {
 }
 
 @keyframes floatUp {
-    0% { bottom: -100px; opacity: 0.25; }
-    100% { bottom: 100vh; opacity: 0.25; }
+    0% { 
+        bottom: -100px; 
+        opacity: 0.25; 
+        transform: translateX(0) rotate(0deg);
+    }
+    100% { 
+        bottom: 100vh; 
+        opacity: 0; 
+        transform: translateX(50px) rotate(360deg);
+    }
 }
 
 @keyframes dropDown {
     0% { top: -100px; opacity: 0.4; }
-    100% { top: 100vh; opacity: 0.2; }
+    100% { top: 100vh; opacity: 0; }
 }
 
 @keyframes iconFloat {
@@ -629,26 +671,56 @@ h1 {
 /* RESPONSIVIDADE */
 @media (max-width: 768px) {
     .countdown { font-size: 1.5rem; }
-    h1 { font-size: 2.8rem; }
-    .subtitle { font-size: 1.3rem; }
-    .heart-image { width: 100%; height: 100%; }
-    .feature-title { font-size: 1.4rem; }
+    h1 { font-size: 2.2rem; }
+    .subtitle { font-size: 1rem; }
+    .heart-image { max-width: 350px; }
+    .page-title { font-size: 2.5rem; letter-spacing: 4px; }
+    .page-subtitle { font-size: 0.95rem; }
+    .feature-title { font-size: 1.6rem; }
     .timer-display { font-size: 2rem; }
-    .cards-grid { grid-template-columns: 1fr; gap: var(--spacing-md); }
-    .main-content { gap: var(--spacing-xl); }
+    .cards-grid { 
+        grid-template-columns: 1fr; 
+        gap: 20px; 
+    }
+    .main-content { gap: 40px; }
     .gothic-icon-img { width: 80px; height: 80px; }
     .pact-heart-icon { width: 100px; height: 100px; }
-    .page-title { font-size: 2.5rem; letter-spacing: 4px; }
+    .feature-card { padding: 40px 30px; }
+    .modal-content { padding: 30px; }
+    .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 15px;
+    }
 }
 
 @media (max-width: 480px) {
     .countdown { font-size: 1.2rem; }
-    h1 { font-size: 2rem; }
-    .subtitle { font-size: 1rem; }
-    .feature-card { padding: var(--spacing-lg); }
-    .modal-content { padding: var(--spacing-lg); }
+    h1 { font-size: 1.8rem; letter-spacing: 2px; }
+    .subtitle { font-size: 0.9rem; }
+    .heart-image { max-width: 280px; }
     .page-title { font-size: 2rem; letter-spacing: 3px; }
-    .page-subtitle { font-size: 0.9rem; }
+    .page-subtitle { font-size: 0.85rem; letter-spacing: 2px; }
+    .feature-card { padding: 30px 20px; }
+    .modal-content { padding: 25px 20px; }
     .gothic-icon-img { width: 70px; height: 70px; }
     .pact-heart-icon { width: 90px; height: 90px; }
+    .feature-title { font-size: 1.4rem; }
+    .feature-description { font-size: 0.95rem; }
+    .timer-display { font-size: 1.8rem; }
+    .gallery-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    .close-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 1.5rem;
+        top: 15px;
+        right: 15px;
+    }
+    .modal-header-ornament,
+    .modal-footer-ornament {
+        font-size: 1.2rem;
+        letter-spacing: 20px;
+    }
 }

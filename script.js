@@ -1,3 +1,4 @@
+// Elementos DOM
 const heart = document.getElementById('heart');
 const countdownElement = document.getElementById('countdown');
 const firstPage = document.getElementById('firstPage');
@@ -45,28 +46,46 @@ const timeGreetings = {
     noite: "A lua testemunha nosso amor..."
 };
 
-// Contador de visitas
+// Variáveis de estado
 let visitCount = 0;
+let pactElements = {
+    blood: 0,
+    bat: 0,
+    heart: 0,
+    blackHeart: 0
+};
 
-// Contador de pacto
-let pactCount = 0;
+// ===== FUNÇÕES DE INICIALIZAÇÃO =====
 
-// Carregar contador de visitas
-function loadVisitCount() {
-    const stored = localStorage.getItem('visitCount');
-    visitCount = stored ? parseInt(stored) : 0;
-    visitCount++;
-    localStorage.setItem('visitCount', visitCount);
-    updateVisitCounter();
-    
-    // Carregar contador de pacto
-    const storedPact = localStorage.getItem('pactCount');
-    pactCount = storedPact ? parseInt(storedPact) : 0;
-    updatePactCounter();
+// Carregar dados salvos do localStorage
+function loadStoredData() {
+    try {
+        // Carregar contador de visitas
+        const stored = localStorage.getItem('visitCount');
+        visitCount = stored ? parseInt(stored) : 0;
+        visitCount++;
+        localStorage.setItem('visitCount', visitCount);
+        
+        // Carregar elementos do pacto
+        const storedElements = localStorage.getItem('pactElements');
+        if (storedElements) {
+            pactElements = JSON.parse(storedElements);
+        }
+        
+        updateVisitCounter();
+        updatePactCounter();
+        restorePactElements();
+    } catch (error) {
+        console.error('Erro ao carregar dados:', error);
+    }
 }
+
+// ===== CONTADORES =====
 
 function updateVisitCounter() {
     const counter = document.getElementById('visitCounter');
+    if (!counter) return;
+    
     if (visitCount === 1) {
         counter.textContent = "Primeira vez aqui... bem-vinda ao meu coração";
     } else if (visitCount < 5) {
@@ -80,27 +99,118 @@ function updateVisitCounter() {
 
 function updatePactCounter() {
     const counter = document.getElementById('pactCounter');
-    if (pactCount === 0) {
+    if (!counter) return;
+    
+    const total = pactElements.blood + pactElements.bat + pactElements.heart + pactElements.blackHeart;
+    
+    if (total === 0) {
         counter.textContent = "O pacto de sangue foi reforçado 0 vezes";
-    } else if (pactCount === 1) {
+    } else if (total === 1) {
         counter.textContent = "O pacto de sangue foi reforçado 1 vez";
     } else {
-        counter.textContent = `O pacto de sangue foi reforçado ${pactCount} vezes`;
+        counter.textContent = `O pacto de sangue foi reforçado ${total} vezes`;
+    }
+    
+    // Mostrar contagem de elementos
+    const elementsText = [];
+    if (pactElements.blood > 0) elementsText.push(`🩸 ${pactElements.blood}`);
+    if (pactElements.bat > 0) elementsText.push(`🦇 ${pactElements.bat}`);
+    if (pactElements.heart > 0) elementsText.push(`❤️ ${pactElements.heart}`);
+    if (pactElements.blackHeart > 0) elementsText.push(`🖤 ${pactElements.blackHeart}`);
+    
+    if (elementsText.length > 0) {
+        counter.innerHTML += `<br><span style="font-size: 0.85rem; opacity: 0.8; margin-top: 8px; display: block;">${elementsText.join(' · ')}</span>`;
     }
 }
 
+// ===== PACTO DE SANGUE =====
+
+function addPactElement() {
+    const elements = ['blood', 'bat', 'heart', 'blackHeart'];
+    const emojis = {
+        blood: '🩸',
+        bat: '🦇',
+        heart: '❤️',
+        blackHeart: '🖤'
+    };
+    
+    // Escolher elemento aleatório
+    const randomElement = elements[Math.floor(Math.random() * elements.length)];
+    pactElements[randomElement]++;
+    
+    // Criar elemento visual
+    const container = document.getElementById('pactElementsContainer');
+    if (!container) return;
+    
+    const element = document.createElement('div');
+    element.className = 'pact-element';
+    element.textContent = emojis[randomElement];
+    element.style.left = Math.random() * 100 + '%';
+    element.style.bottom = '-100px';
+    element.style.animationDuration = (10 + Math.random() * 10) + 's';
+    element.style.animationDelay = Math.random() * 2 + 's';
+    
+    container.appendChild(element);
+    
+    // Remover elemento após a animação
+    setTimeout(() => {
+        if (element.parentNode) {
+            element.parentNode.removeChild(element);
+        }
+    }, (10 + Math.random() * 10) * 1000);
+    
+    // Salvar no localStorage
+    try {
+        localStorage.setItem('pactElements', JSON.stringify(pactElements));
+    } catch (error) {
+        console.error('Erro ao salvar elementos do pacto:', error);
+    }
+}
+
+function restorePactElements() {
+    const container = document.getElementById('pactElementsContainer');
+    if (!container) return;
+    
+    const emojis = {
+        blood: '🩸',
+        bat: '🦇',
+        heart: '❤️',
+        blackHeart: '🖤'
+    };
+    
+    // Criar elementos salvos (limitando a 20 por tipo para performance)
+    Object.keys(pactElements).forEach(type => {
+        const count = Math.min(pactElements[type], 20);
+        for (let i = 0; i < count; i++) {
+            const element = document.createElement('div');
+            element.className = 'pact-element';
+            element.textContent = emojis[type];
+            element.style.left = Math.random() * 100 + '%';
+            element.style.bottom = (Math.random() * 100) + 'vh';
+            element.style.animationDuration = (10 + Math.random() * 10) + 's';
+            element.style.animationDelay = Math.random() * 2 + 's';
+            container.appendChild(element);
+        }
+    });
+}
+
 function reinforcePact() {
-    pactCount++;
-    localStorage.setItem('pactCount', pactCount);
+    // Adicionar novo elemento visual
+    addPactElement();
+    
     updatePactCounter();
     
     // Efeito visual
     const pactCard = document.querySelector('.pact-card');
-    pactCard.classList.add('pact-reinforced');
-    setTimeout(() => {
-        pactCard.classList.remove('pact-reinforced');
-    }, 600);
+    if (pactCard) {
+        pactCard.classList.add('pact-reinforced');
+        setTimeout(() => {
+            pactCard.classList.remove('pact-reinforced');
+        }, 600);
+    }
 }
+
+// ===== TEMPO E SAUDAÇÕES =====
 
 // Determinar período do dia
 function getTimeOfDay() {
@@ -113,13 +223,20 @@ function getTimeOfDay() {
 
 // Atualizar saudação
 function updateTimeGreeting() {
+    const greetingElement = document.getElementById('timeGreeting');
+    if (!greetingElement) return;
+    
     const period = getTimeOfDay();
-    document.getElementById('timeGreeting').textContent = timeGreetings[period];
+    greetingElement.textContent = timeGreetings[period];
 }
+
+// ===== ELEMENTOS DECORATIVOS =====
 
 // Criar elementos flutuantes (corações e morcegos)
 function createFloatingElements() {
     const container = document.getElementById('floatingContainer');
+    if (!container) return;
+    
     const elements = ['❤️', '🖤', '🦇'];
     
     for (let i = 0; i < 10; i++) {
@@ -136,8 +253,9 @@ function createFloatingElements() {
 // Criar gotas de sangue
 function createBloodDrops() {
     const container = document.getElementById('bloodContainer');
+    if (!container) return;
     
-    for (let i = 0; i < 40; i++) {
+    for (let i = 0; i < 30; i++) {
         const drop = document.createElement('div');
         drop.className = 'blood-drop';
         drop.style.left = Math.random() * 100 + '%';
@@ -147,8 +265,12 @@ function createBloodDrops() {
     }
 }
 
-// Atualizar cronômetro até a data
+// ===== CRONÔMETROS =====
+
+// Atualizar cronômetro até a data alvo
 function updateCountdown() {
+    if (!countdownElement) return;
+    
     const now = new Date().getTime();
     const distance = targetDate - now;
 
@@ -168,71 +290,86 @@ function updateCountdown() {
 
 // Atualizar cronômetro do relacionamento
 function updateRelationshipTimer() {
+    const timerElement = document.getElementById('relationshipTimer');
+    if (!timerElement) return;
+    
     const now = new Date().getTime();
     const distance = now - relationshipStart;
 
     const days = Math.floor(distance / (1000 * 60 * 60 * 24));
     const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-    document.getElementById('relationshipTimer').textContent = 
-        `${days} dias`;
+    timerElement.textContent = `${days} dias`;
 }
 
-// Inicializar ao carregar a página principal
+// ===== INICIALIZAÇÃO DA PÁGINA PRINCIPAL =====
+
 function initMainPage() {
     updateTimeGreeting();
-    loadVisitCount();
+    loadStoredData();
     createFloatingElements();
     createBloodDrops();
 }
 
-// Atualizar a cada segundo
-setInterval(updateCountdown, 1000);
-setInterval(updateRelationshipTimer, 1000);
-updateCountdown();
-updateRelationshipTimer();
+// ===== EVENTOS DO CORAÇÃO =====
 
-// Clique no coração
-heart.addEventListener('click', function() {
-    const now = new Date().getTime();
-    
-    if (now < targetDate) {
-        heart.classList.add('beating');
+if (heart) {
+    heart.addEventListener('click', function() {
+        const now = new Date().getTime();
         
-        setTimeout(() => {
-            alert('Tá ansiosa?');
-        }, 2000);
-        
-        setTimeout(() => {
-            heart.classList.remove('beating');
-        }, 3000);
-    } else {
-        // Transição para a segunda página
-        heart.classList.add('beating');
-        
-        setTimeout(() => {
-            firstPage.classList.add('hidden');
+        if (now >= targetDate) {
+            heart.classList.add('beating');
+            
             setTimeout(() => {
-                mainPage.classList.add('active');
-                initMainPage();
-            }, 500);
-        }, 1600);
-    }
-});
+                alert('Tá ansiosa?');
+            }, 2000);
+            
+            setTimeout(() => {
+                heart.classList.remove('beating');
+            }, 3000);
+        } else {
+            // Transição para a segunda página
+            heart.classList.add('beating');
+            
+            setTimeout(() => {
+                if (firstPage) {
+                    firstPage.classList.add('hidden');
+                }
+                setTimeout(() => {
+                    if (mainPage) {
+                        mainPage.classList.add('active');
+                        initMainPage();
+                    }
+                }, 500);
+            }, 1600);
+        }
+    });
+}
 
-// Funções dos modais
+// ===== MODAIS =====
+
 function openLetter() {
-    document.getElementById('letterModal').classList.add('active');
+    const modal = document.getElementById('letterModal');
+    if (modal) {
+        modal.classList.add('active');
+    }
 }
 
 function openOracle() {
     const period = getTimeOfDay();
     const messages = oracleMessages[period];
     const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-    document.getElementById('oracleText').textContent = randomMessage;
-    document.getElementById('oracleModal').classList.add('active');
+    
+    const oracleText = document.getElementById('oracleText');
+    const modal = document.getElementById('oracleModal');
+    
+    if (oracleText) {
+        oracleText.textContent = randomMessage;
+    }
+    if (modal) {
+        modal.classList.add('active');
+    }
 }
 
 function openGallery() {
@@ -245,25 +382,39 @@ function openGallery() {
     ];
     
     const gallery = document.getElementById('galleryGrid');
-    gallery.innerHTML = photos.map(photo => 
-        `<div class="polaroid">
-            <img src="${photo}" alt="Nossa memória" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22%3E%3Crect fill=%22%23333%22 width=%22200%22 height=%22200%22/%3E%3Ctext fill=%22%23666%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3E❤️%3C/text%3E%3C/svg%3E'">
-        </div>`
-    ).join('');
+    if (gallery) {
+        gallery.innerHTML = photos.map(photo => 
+            `<div class="polaroid">
+                <img src="${photo}" alt="Nossa memória" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22%3E%3Crect fill=%22%23333%22 width=%22200%22 height=%22200%22/%3E%3Ctext fill=%22%23B91818%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22 font-size=%2260%22%3E❤️%3C/text%3E%3C/svg%3E'">
+            </div>`
+        ).join('');
+    }
     
-    document.getElementById('galleryModal').classList.add('active');
+    const modal = document.getElementById('galleryModal');
+    if (modal) {
+        modal.classList.add('active');
+    }
 }
 
 function openPlaylist() {
-    document.getElementById('playlistModal').classList.add('active');
+    const modal = document.getElementById('playlistModal');
+    if (modal) {
+        modal.classList.add('active');
+    }
 }
 
 function openMap() {
-    document.getElementById('mapModal').classList.add('active');
+    const modal = document.getElementById('mapModal');
+    if (modal) {
+        modal.classList.add('active');
+    }
 }
 
 function closeModal(modalId) {
-    document.getElementById(modalId).classList.remove('active');
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.classList.remove('active');
+    }
 }
 
 // Fechar modal clicando fora
@@ -275,24 +426,15 @@ document.querySelectorAll('.modal').forEach(modal => {
     });
 });
 
-/*
-mudanças nas funcionalidades:
+// ===== INICIALIZAÇÃO =====
 
-o pacto a cada clique adicionara um elemento a mais na tela (sangue, morcego, coração ou coração preto), começará com 0 de cada elemento
+// Atualizar cronômetros imediatamente
+updateCountdown();
+updateRelationshipTimer();
 
-o oráculo terá 50 opções de fala
+// Atualizar a cada segundo
+setInterval(updateCountdown, 1000);
+setInterval(updateRelationshipTimer, 1000);
 
-memórias não mostraram todas as memórias, terá 50 memórias e vai mostrar aleatoriamente alguma
-
-sinfonia por enquanto nao mexe
-
-mapa funcionará igual memória
-
-terá mais de uma opção de carta. serão 10 e tambem mostrar uma alaeatoria cada vez
-
-centralizar melhor o site para mobile ajustando o site ao tamanho do dispositivo
-
-10 variações de saudação para cada horário (10 manhas, 10 tarde, 10 noites, 10 madrugadas)
-
-a cada visita ter uma mensagem diferente, até a 100° visita
-*/
+// Log de inicialização
+console.log('Site inicializado com sucesso!');

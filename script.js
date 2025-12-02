@@ -1,4 +1,3 @@
-// Elementos DOM
 const heart = document.getElementById('heart');
 const countdownElement = document.getElementById('countdown');
 const firstPage = document.getElementById('firstPage');
@@ -46,8 +45,13 @@ const timeGreetings = {
     noite: "A lua testemunha nosso amor..."
 };
 
-// Variáveis de estado
+// Contador de visitas
 let visitCount = 0;
+
+// Contador de pacto
+let pactCount = 0;
+
+// Contadores de elementos
 let pactElements = {
     blood: 0,
     bat: 0,
@@ -55,37 +59,29 @@ let pactElements = {
     blackHeart: 0
 };
 
-// ===== FUNÇÕES DE INICIALIZAÇÃO =====
-
-// Carregar dados salvos do localStorage
-function loadStoredData() {
-    try {
-        // Carregar contador de visitas
-        const stored = localStorage.getItem('visitCount');
-        visitCount = stored ? parseInt(stored) : 0;
-        visitCount++;
-        localStorage.setItem('visitCount', visitCount);
-        
-        // Carregar elementos do pacto
-        const storedElements = localStorage.getItem('pactElements');
-        if (storedElements) {
-            pactElements = JSON.parse(storedElements);
-        }
-        
-        updateVisitCounter();
-        updatePactCounter();
-        restorePactElements();
-    } catch (error) {
-        console.error('Erro ao carregar dados:', error);
+// Carregar contador de visitas
+function loadVisitCount() {
+    const stored = localStorage.getItem('visitCount');
+    visitCount = stored ? parseInt(stored) : 0;
+    visitCount++;
+    localStorage.setItem('visitCount', visitCount);
+    updateVisitCounter();
+    
+    // Carregar contador de pacto e elementos
+    const storedPact = localStorage.getItem('pactCount');
+    pactCount = storedPact ? parseInt(storedPact) : 0;
+    
+    const storedElements = localStorage.getItem('pactElements');
+    if (storedElements) {
+        pactElements = JSON.parse(storedElements);
     }
+    
+    updatePactCounter();
+    restorePactElements();
 }
-
-// ===== CONTADORES =====
 
 function updateVisitCounter() {
     const counter = document.getElementById('visitCounter');
-    if (!counter) return;
-    
     if (visitCount === 1) {
         counter.textContent = "Primeira vez aqui... bem-vinda ao meu coração";
     } else if (visitCount < 5) {
@@ -99,8 +95,6 @@ function updateVisitCounter() {
 
 function updatePactCounter() {
     const counter = document.getElementById('pactCounter');
-    if (!counter) return;
-    
     const total = pactElements.blood + pactElements.bat + pactElements.heart + pactElements.blackHeart;
     
     if (total === 0) {
@@ -123,8 +117,6 @@ function updatePactCounter() {
     }
 }
 
-// ===== PACTO DE SANGUE =====
-
 function addPactElement() {
     const elements = ['blood', 'bat', 'heart', 'blackHeart'];
     const emojis = {
@@ -139,38 +131,22 @@ function addPactElement() {
     pactElements[randomElement]++;
     
     // Criar elemento visual
-    const container = document.getElementById('pactElementsContainer');
-    if (!container) return;
-    
     const element = document.createElement('div');
     element.className = 'pact-element';
     element.textContent = emojis[randomElement];
     element.style.left = Math.random() * 100 + '%';
-    element.style.bottom = '-100px';
+    element.style.top = Math.random() * 100 + '%';
     element.style.animationDuration = (10 + Math.random() * 10) + 's';
     element.style.animationDelay = Math.random() * 2 + 's';
     
-    container.appendChild(element);
-    
-    // Remover elemento após a animação
-    setTimeout(() => {
-        if (element.parentNode) {
-            element.parentNode.removeChild(element);
-        }
-    }, (10 + Math.random() * 10) * 1000);
+    document.getElementById('pactElementsContainer').appendChild(element);
     
     // Salvar no localStorage
-    try {
-        localStorage.setItem('pactElements', JSON.stringify(pactElements));
-    } catch (error) {
-        console.error('Erro ao salvar elementos do pacto:', error);
-    }
+    localStorage.setItem('pactElements', JSON.stringify(pactElements));
 }
 
 function restorePactElements() {
     const container = document.getElementById('pactElementsContainer');
-    if (!container) return;
-    
     const emojis = {
         blood: '🩸',
         bat: '🦇',
@@ -178,15 +154,14 @@ function restorePactElements() {
         blackHeart: '🖤'
     };
     
-    // Criar elementos salvos (limitando a 20 por tipo para performance)
+    // Criar elementos salvos
     Object.keys(pactElements).forEach(type => {
-        const count = Math.min(pactElements[type], 20);
-        for (let i = 0; i < count; i++) {
+        for (let i = 0; i < pactElements[type]; i++) {
             const element = document.createElement('div');
             element.className = 'pact-element';
             element.textContent = emojis[type];
             element.style.left = Math.random() * 100 + '%';
-            element.style.bottom = (Math.random() * 100) + 'vh';
+            element.style.top = Math.random() * 100 + '%';
             element.style.animationDuration = (10 + Math.random() * 10) + 's';
             element.style.animationDelay = Math.random() * 2 + 's';
             container.appendChild(element);
@@ -195,6 +170,9 @@ function restorePactElements() {
 }
 
 function reinforcePact() {
+    pactCount++;
+    localStorage.setItem('pactCount', pactCount);
+    
     // Adicionar novo elemento visual
     addPactElement();
     
@@ -202,15 +180,11 @@ function reinforcePact() {
     
     // Efeito visual
     const pactCard = document.querySelector('.pact-card');
-    if (pactCard) {
-        pactCard.classList.add('pact-reinforced');
-        setTimeout(() => {
-            pactCard.classList.remove('pact-reinforced');
-        }, 600);
-    }
+    pactCard.classList.add('pact-reinforced');
+    setTimeout(() => {
+        pactCard.classList.remove('pact-reinforced');
+    }, 600);
 }
-
-// ===== TEMPO E SAUDAÇÕES =====
 
 // Determinar período do dia
 function getTimeOfDay() {
@@ -223,20 +197,13 @@ function getTimeOfDay() {
 
 // Atualizar saudação
 function updateTimeGreeting() {
-    const greetingElement = document.getElementById('timeGreeting');
-    if (!greetingElement) return;
-    
     const period = getTimeOfDay();
-    greetingElement.textContent = timeGreetings[period];
+    document.getElementById('timeGreeting').textContent = timeGreetings[period];
 }
-
-// ===== ELEMENTOS DECORATIVOS =====
 
 // Criar elementos flutuantes (corações e morcegos)
 function createFloatingElements() {
     const container = document.getElementById('floatingContainer');
-    if (!container) return;
-    
     const elements = ['❤️', '🖤', '🦇'];
     
     for (let i = 0; i < 10; i++) {
@@ -253,9 +220,8 @@ function createFloatingElements() {
 // Criar gotas de sangue
 function createBloodDrops() {
     const container = document.getElementById('bloodContainer');
-    if (!container) return;
     
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 40; i++) {
         const drop = document.createElement('div');
         drop.className = 'blood-drop';
         drop.style.left = Math.random() * 100 + '%';
@@ -265,12 +231,8 @@ function createBloodDrops() {
     }
 }
 
-// ===== CRONÔMETROS =====
-
-// Atualizar cronômetro até a data alvo
+// Atualizar cronômetro até a data
 function updateCountdown() {
-    if (!countdownElement) return;
-    
     const now = new Date().getTime();
     const distance = targetDate - now;
 
@@ -290,86 +252,71 @@ function updateCountdown() {
 
 // Atualizar cronômetro do relacionamento
 function updateRelationshipTimer() {
-    const timerElement = document.getElementById('relationshipTimer');
-    if (!timerElement) return;
-    
     const now = new Date().getTime();
     const distance = now - relationshipStart;
 
     const days = Math.floor(distance / (1000 * 60 * 60 * 24));
     const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-    timerElement.textContent = `${days} dias`;
+    document.getElementById('relationshipTimer').textContent = 
+        `${days} dias`;
 }
 
-// ===== INICIALIZAÇÃO DA PÁGINA PRINCIPAL =====
-
+// Inicializar ao carregar a página principal
 function initMainPage() {
     updateTimeGreeting();
-    loadStoredData();
+    loadVisitCount();
     createFloatingElements();
     createBloodDrops();
 }
 
-// ===== EVENTOS DO CORAÇÃO =====
+// Atualizar a cada segundo
+setInterval(updateCountdown, 1000);
+setInterval(updateRelationshipTimer, 1000);
+updateCountdown();
+updateRelationshipTimer();
 
-if (heart) {
-    heart.addEventListener('click', function() {
-        const now = new Date().getTime();
+// Clique no coração
+heart.addEventListener('click', function() {
+    const now = new Date().getTime();
+    
+    if (now > targetDate) {
+        heart.classList.add('beating');
         
-        if (now >= targetDate) {
-            heart.classList.add('beating');
-            
+        setTimeout(() => {
+            alert('Tá ansiosa?');
+        }, 2000);
+        
+        setTimeout(() => {
+            heart.classList.remove('beating');
+        }, 3000);
+    } else {
+        // Transição para a segunda página
+        heart.classList.add('beating');
+        
+        setTimeout(() => {
+            firstPage.classList.add('hidden');
             setTimeout(() => {
-                alert('Tá ansiosa?');
-            }, 2000);
-            
-            setTimeout(() => {
-                heart.classList.remove('beating');
-            }, 3000);
-        } else {
-            // Transição para a segunda página
-            heart.classList.add('beating');
-            
-            setTimeout(() => {
-                if (firstPage) {
-                    firstPage.classList.add('hidden');
-                }
-                setTimeout(() => {
-                    if (mainPage) {
-                        mainPage.classList.add('active');
-                        initMainPage();
-                    }
-                }, 500);
-            }, 1600);
-        }
-    });
-}
-
-// ===== MODAIS =====
-
-function openLetter() {
-    const modal = document.getElementById('letterModal');
-    if (modal) {
-        modal.classList.add('active');
+                mainPage.classList.add('active');
+                initMainPage();
+            }, 500);
+        }, 1600);
     }
+});
+
+// Funções dos modais
+function openLetter() {
+    document.getElementById('letterModal').classList.add('active');
 }
 
 function openOracle() {
     const period = getTimeOfDay();
     const messages = oracleMessages[period];
     const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-    
-    const oracleText = document.getElementById('oracleText');
-    const modal = document.getElementById('oracleModal');
-    
-    if (oracleText) {
-        oracleText.textContent = randomMessage;
-    }
-    if (modal) {
-        modal.classList.add('active');
-    }
+    document.getElementById('oracleText').textContent = randomMessage;
+    document.getElementById('oracleModal').classList.add('active');
 }
 
 function openGallery() {
@@ -382,39 +329,25 @@ function openGallery() {
     ];
     
     const gallery = document.getElementById('galleryGrid');
-    if (gallery) {
-        gallery.innerHTML = photos.map(photo => 
-            `<div class="polaroid">
-                <img src="${photo}" alt="Nossa memória" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22%3E%3Crect fill=%22%23333%22 width=%22200%22 height=%22200%22/%3E%3Ctext fill=%22%23B91818%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22 font-size=%2260%22%3E❤️%3C/text%3E%3C/svg%3E'">
-            </div>`
-        ).join('');
-    }
+    gallery.innerHTML = photos.map(photo => 
+        `<div class="polaroid">
+            <img src="${photo}" alt="Nossa memória" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22%3E%3Crect fill=%22%23333%22 width=%22200%22 height=%22200%22/%3E%3Ctext fill=%22%23666%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3E❤️%3C/text%3E%3C/svg%3E'">
+        </div>`
+    ).join('');
     
-    const modal = document.getElementById('galleryModal');
-    if (modal) {
-        modal.classList.add('active');
-    }
+    document.getElementById('galleryModal').classList.add('active');
 }
 
 function openPlaylist() {
-    const modal = document.getElementById('playlistModal');
-    if (modal) {
-        modal.classList.add('active');
-    }
+    document.getElementById('playlistModal').classList.add('active');
 }
 
 function openMap() {
-    const modal = document.getElementById('mapModal');
-    if (modal) {
-        modal.classList.add('active');
-    }
+    document.getElementById('mapModal').classList.add('active');
 }
 
 function closeModal(modalId) {
-    const modal = document.getElementById(modalId);
-    if (modal) {
-        modal.classList.remove('active');
-    }
+    document.getElementById(modalId).classList.remove('active');
 }
 
 // Fechar modal clicando fora
@@ -426,15 +359,133 @@ document.querySelectorAll('.modal').forEach(modal => {
     });
 });
 
-// ===== INICIALIZAÇÃO =====
+// Efeito de digitação (typewriter)
+function typeWriter(element, html, speed = 30) {
+    element.innerHTML = '';
+    let i = 0;
+    let tempDiv = document.createElement('div');
+    tempDiv.innerHTML = html;
+    const text = tempDiv.textContent || tempDiv.innerText;
+    
+    // Criar estrutura HTML temporária
+    const structure = [];
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    
+    function typeChar() {
+        if (i < text.length) {
+            // Reconstruir HTML progressivamente
+            let currentHtml = '';
+            let charCount = 0;
+            
+            function buildHtml(node) {
+                if (charCount >= i + 1) return '';
+                
+                if (node.nodeType === Node.TEXT_NODE) {
+                    const nodeText = node.textContent;
+                    const remainingChars = (i + 1) - charCount;
+                    const textToShow = nodeText.substring(0, remainingChars);
+                    charCount += nodeText.length;
+                    return textToShow;
+                } else if (node.nodeType === Node.ELEMENT_NODE) {
+                    const tagName = node.tagName.toLowerCase();
+                    let attrs = '';
+                    for (let attr of node.attributes) {
+                        attrs += ` ${attr.name}="${attr.value}"`;
+                    }
+                    
+                    let content = '';
+                    for (let child of node.childNodes) {
+                        content += buildHtml(child);
+                    }
+                    
+                    if (content || charCount < i + 1) {
+                        return `<${tagName}${attrs}>${content}</${tagName}>`;
+                    }
+                    return '';
+                }
+                return '';
+            }
+            
+            for (let child of doc.body.childNodes) {
+                currentHtml += buildHtml(child);
+            }
+            
+            element.innerHTML = currentHtml;
+            i++;
+            setTimeout(typeChar, speed);
+        }
+    }
+    
+    typeChar();
+}
 
-// Atualizar cronômetros imediatamente
-updateCountdown();
-updateRelationshipTimer();
+// Funções dos modais
+function openLetter() {
+    const modal = document.getElementById('letterModal');
+    const content = document.querySelector('#letterModal .letter-content');
+    
+    const letterHtml = `
+        <p>Meu amor,</p>
+        <br>
+        <p>Cada dia ao seu lado é uma nova página da nossa história. Você trouxe luz para os meus dias mais escuros e transformou momentos simples em memórias inesquecíveis.</p>
+        <br>
+        <p>Este espaço é nosso, onde guardamos tudo aquilo que nos faz únicos. Cada foto, cada música, cada lugar... tudo tem um pedacinho do nosso amor.</p>
+        <br>
+        <p>Te amo mais do que as palavras podem expressar.</p>
+        <br>
+        <p style="text-align: right;">Para sempre seu ❤️</p>
+    `;
+    
+    modal.classList.add('active');
+    typeWriter(content, letterHtml, 20);
+}
 
-// Atualizar a cada segundo
-setInterval(updateCountdown, 1000);
-setInterval(updateRelationshipTimer, 1000);
+function openOracle() {
+    const period = getTimeOfDay();
+    const messages = oracleMessages[period];
+    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+    const oracleElement = document.getElementById('oracleText');
+    
+    document.getElementById('oracleModal').classList.add('active');
+    typeWriter(oracleElement, randomMessage, 40);
+}
 
-// Log de inicialização
-console.log('Site inicializado com sucesso!');
+function openGallery() {
+    // Aqui você pode adicionar suas fotos
+    const photos = [
+        'foto1.jpg',
+        'foto2.jpg',
+        'foto3.jpg',
+        'foto4.jpg'
+    ];
+    
+    const gallery = document.getElementById('galleryGrid');
+    gallery.innerHTML = photos.map(photo => 
+        `<div class="polaroid">
+            <img src="${photo}" alt="Nossa memória" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22%3E%3Crect fill=%22%23333%22 width=%22200%22 height=%22200%22/%3E%3Ctext fill=%22%23666%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3E❤️%3C/text%3E%3C/svg%3E'">
+        </div>`
+    ).join('');
+    
+    document.getElementById('galleryModal').classList.add('active');
+}
+
+function openPlaylist() {
+    const modal = document.getElementById('playlistModal');
+    const content = document.querySelector('#playlistModal .letter-content');
+    
+    const playlistHtml = '<p style="text-align: center;">Em breve você poderá adicionar suas músicas especiais aqui! 🎵</p>';
+    
+    modal.classList.add('active');
+    typeWriter(content, playlistHtml, 30);
+}
+
+function openMap() {
+    const modal = document.getElementById('mapModal');
+    const content = document.querySelector('#mapModal .letter-content');
+    
+    const mapHtml = '<p style="text-align: center;">Em breve você poderá marcar os lugares especiais da nossa história! 📍</p>';
+    
+    modal.classList.add('active');
+    typeWriter(content, mapHtml, 30);
+}

@@ -13,16 +13,15 @@
 
     <div id="floatingContainer"></div>
     <div id="bloodContainer"></div>
-    <div id="pactElementsContainer"></div>
     
     <!-- PRIMEIRA PÁGINA -->
     <div class="container" id="firstPage">
         <div class="countdown-container">
-            <div id="countdown" class="countdown">00:00:00:00</div>
+            <div id="countdown" class="countdown"></div>
         </div>
         
         <div class="heart-image" id="heart">
-            <img src="coracao.png" alt="Coração Anatômico" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22500%22 height=%22500%22 viewBox=%220 0 500 500%22%3E%3Cpath d=%22M250 450 C 150 350 50 250 50 150 C 50 50 150 50 250 150 C 350 50 450 50 450 150 C 450 250 350 350 250 450 Z%22 fill=%22%23B91818%22 stroke=%22%23fff%22 stroke-width=%222%22/%3E%3C/svg%3E'">
+            <img src="coracao.png" alt="Coração Anatômico">
         </div>
         
         <h1>O CORAÇÃO</h1>
@@ -36,44 +35,36 @@
             <div class="gothic-header">
                 <h2 class="page-title">DENTRO DO CORAÇÃO</h2>
                 <p class="page-subtitle">Não tem mais Volta</p>
-                <p class="time-greeting" id="timeGreeting">Bem-vindo(a)...</p>
+                <p class="time-greeting" id="timeGreeting"></p>
             </div>
             
             <!-- Envelope minimalista -->
             <div class="feature-card envelope-card" onclick="openLetter()">
-                <img src="envelope.png" alt="Envelope Selado" class="envelope-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22450%22 height=%22300%22%3E%3Crect fill=%22%23331010%22 width=%22450%22 height=%22300%22/%3E%3Cpath d=%22M 0 0 L 225 150 L 450 0%22 fill=%22%23441818%22 stroke=%22%23B91818%22 stroke-width=%222%22/%3E%3Ctext fill=%22%23B91818%22 x=%2250%25%22 y=%2270%25%22 text-anchor=%22middle%22 font-size=%2224%22%3E✉%3C/text%3E%3C/svg%3E'">
+                <img src="envelope.png" alt="Envelope Selado" class="envelope-image">
             </div>
 
-            <!-- Botão Pacto de Sangue -->
-            <div class="feature-card pact-card" onclick="reinforcePact()">
-                <img src="heart.png" alt="Coração" class="pact-heart-icon" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22120%22 viewBox=%220 0 120 120%22%3E%3Cpath d=%22M60 110 C 40 90 10 70 10 40 C 10 20 30 20 60 50 C 90 20 110 20 110 40 C 110 70 80 90 60 110 Z%22 fill=%22%23B91818%22 stroke=%22%23fff%22 stroke-width=%222%22/%3E%3C/svg%3E'">
-                <h2 class="feature-title">Pactos</h2>
-                <p class="feature-description">Reforce o pacto de sangue</p>
-                <p class="pact-counter" id="pactCounter">O pacto de sangue foi reforçado 0 vezes</p>
-            </div>
-
-            <!-- Grid de cards -->
+            <!-- Grid de cards - 4 blocos alinhados -->
             <div class="cards-grid">
                 <div class="feature-card gothic-card" onclick="openOracle()">
-                    <img src="oraculo.png" alt="Oráculo" class="gothic-icon-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%23331010%22 stroke=%22%23B91818%22 stroke-width=%222%22/%3E%3Ctext fill=%22%23fff%22 x=%2250%25%22 y=%2260%25%22 text-anchor=%22middle%22 font-size=%2250%22%3E🔮%3C/text%3E%3C/svg%3E'">
+                    <img src="oraculo.png" alt="Oráculo" class="gothic-icon-img">
                     <h2 class="feature-title">Oráculo</h2>
                     <p class="feature-description">Descubra algo especial</p>
                 </div>
 
                 <div class="feature-card gothic-card" onclick="openGallery()">
-                    <img src="fotos.png" alt="Memórias" class="gothic-icon-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22%3E%3Crect fill=%22%23331010%22 width=%22100%22 height=%22100%22 stroke=%22%23B91818%22 stroke-width=%222%22/%3E%3Ctext fill=%22%23fff%22 x=%2250%25%22 y=%2260%25%22 text-anchor=%22middle%22 font-size=%2250%22%3E📷%3C/text%3E%3C/svg%3E'">
+                    <img src="fotos.png" alt="Memórias" class="gothic-icon-img">
                     <h2 class="feature-title">Memórias</h2>
                     <p class="feature-description">Nossas memórias</p>
                 </div>
 
                 <div class="feature-card gothic-card" onclick="openPlaylist()">
-                    <img src="musica.png" alt="Sinfonias" class="gothic-icon-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%23331010%22 stroke=%22%23B91818%22 stroke-width=%222%22/%3E%3Ctext fill=%22%23fff%22 x=%2250%25%22 y=%2260%25%22 text-anchor=%22middle%22 font-size=%2250%22%3E🎵%3C/text%3E%3C/svg%3E'">
+                    <img src="musica.png" alt="Sinfonias" class="gothic-icon-img">
                     <h2 class="feature-title">Sinfonias</h2>
                     <p class="feature-description">Nossas músicas</p>
                 </div>
 
                 <div class="feature-card gothic-card" onclick="openMap()">
-                    <img src="local.png" alt="Mapa" class="gothic-icon-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22%3E%3Crect fill=%22%23331010%22 width=%22100%22 height=%22100%22 stroke=%22%23B91818%22 stroke-width=%222%22/%3E%3Ctext fill=%22%23fff%22 x=%2250%25%22 y=%2260%25%22 text-anchor=%22middle%22 font-size=%2250%22%3E📍%3C/text%3E%3C/svg%3E'">
+                    <img src="local.png" alt="Mapa" class="gothic-icon-img">
                     <h2 class="feature-title">Mapa</h2>
                     <p class="feature-description">Nossos lugares</p>
                 </div>
@@ -81,9 +72,9 @@
 
             <!-- Cronômetro minimalista -->
             <div class="timer-card">
-                <h2 class="feature-title">Selados à eternidade há</h2>
-                <div class="timer-display" id="relationshipTimer">0 dias</div>
-                <p class="visit-counter" id="visitCounter">Primeira vez aqui... bem-vinda ao meu coração</p>
+                <h2 class="feature-title">Tempo de Vida Juntos</h2>
+                <div class="timer-display" id="relationshipTimer"></div>
+                <p class="visit-counter" id="visitCounter"></p>
             </div>
         </div>
     </div>
@@ -112,13 +103,13 @@
         <div class="modal-content gothic-modal">
             <span class="close-btn" onclick="closeModal('oracleModal')">✕</span>
             <div class="modal-header-ornament">⸸ ✦ ⸸</div>
-            <div class="oracle-content" id="oracleText">Consultando o oráculo...</div>
+            <div class="oracle-content" id="oracleText"></div>
             <div class="modal-footer-ornament">⸸ ✦ ⸸</div>
         </div>
     </div>
 
     <div class="modal" id="galleryModal">
-        <div class="modal-content gothic-modal gallery-modal">
+        <div class="modal-content gothic-modal">
             <span class="close-btn" onclick="closeModal('galleryModal')">✕</span>
             <div class="modal-header-ornament">⸸ ✦ ⸸</div>
             <h2 class="feature-title" style="text-align: center; margin-bottom: 20px;">NOSSA GALERIA</h2>

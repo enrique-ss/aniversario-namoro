@@ -402,25 +402,59 @@ h1 {
     position: fixed;
     top: var(--spacing-md);
     right: var(--spacing-md);
-    font-size: 2rem;
+    font-size: 1.8rem;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
     color: var(--color-text-primary);
     cursor: pointer;
-    transition: transform var(--transition-fast);
-    width: 40px;
-    height: 40px;
+    transition: all var(--transition-normal);
+    width: 50px;
+    height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 2px solid var(--color-border);
-    background: rgba(0, 0, 0, 0.8);
+    border: 3px solid #2a1810;
+    background: linear-gradient(145deg, #1a1410, #0d0a08);
+    border-radius: 50%;
     z-index: 1001;
+    line-height: 0;
+    box-shadow: 
+        0 5px 20px rgba(0, 0, 0, 0.8),
+        inset 0 0 15px rgba(0, 0, 0, 0.5);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+#galleryModal .close-btn::before,
+#mapModal .close-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 0, 0, 0.03) 2px,
+            rgba(0, 0, 0, 0.03) 4px
+        );
+    pointer-events: none;
+    border-radius: 50%;
+    opacity: 0.3;
 }
 
 #galleryModal .close-btn:hover,
 #mapModal .close-btn:hover {
-    transform: rotate(90deg);
-    border-color: var(--color-red-primary);
-    background: var(--color-bg-card);
+    transform: rotate(90deg) scale(1.1);
+    border-color: var(--color-red-dark);
+    background: linear-gradient(145deg, #2a1410, #1a1410);
+    box-shadow: 
+        0 8px 30px rgba(185, 24, 24, 0.6),
+        inset 0 0 15px rgba(0, 0, 0, 0.5),
+        var(--shadow-glow);
+    color: var(--color-red-primary);
 }
 
 #mapModal .letter-content {
@@ -428,6 +462,101 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+/* Botões de navegação do carrossel */
+.carousel-btn {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2.5rem;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    color: var(--color-text-primary);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid #2a1810;
+    background: linear-gradient(145deg, #1a1410, #0d0a08);
+    border-radius: 50%;
+    z-index: 1001;
+    user-select: none;
+    line-height: 0;
+    padding: 0;
+    box-shadow: 
+        0 5px 20px rgba(0, 0, 0, 0.8),
+        inset 0 0 15px rgba(0, 0, 0, 0.5);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+.carousel-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 0, 0, 0.03) 2px,
+            rgba(0, 0, 0, 0.03) 4px
+        );
+    pointer-events: none;
+    border-radius: 50%;
+    opacity: 0.3;
+}
+
+.carousel-btn:hover {
+    border-color: var(--color-red-dark);
+    background: linear-gradient(145deg, #2a1410, #1a1410);
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 
+        0 8px 30px rgba(185, 24, 24, 0.6),
+        inset 0 0 15px rgba(0, 0, 0, 0.5),
+        var(--shadow-glow);
+    color: var(--color-red-primary);
+}
+
+.carousel-btn:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.carousel-btn.prev {
+    left: var(--spacing-md);
+}
+
+.carousel-btn.next {
+    right: var(--spacing-md);
+}
+
+@media (max-width: 768px) {
+    #galleryModal .close-btn,
+    #mapModal .close-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 1.5rem;
+    }
+    
+    .carousel-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 2rem;
+    }
+    
+    .carousel-btn.prev {
+        left: var(--spacing-xs);
+    }
+    
+    .carousel-btn.next {
+        right: var(--spacing-xs);
+    }
 }
 
 .modal-content {
@@ -517,36 +646,82 @@ h1 {
 }
 
 .single-polaroid {
-    background: var(--color-bg-card);
-    padding: var(--spacing-md);
-    padding-bottom: var(--spacing-xl);
-    box-shadow: var(--shadow-md);
-    border: 2px solid var(--color-border);
-    max-width: 450px;
+    background: linear-gradient(145deg, #1a1410, #0d0a08);
+    padding: var(--spacing-sm);
+    padding-bottom: var(--spacing-lg);
+    box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.8),
+        inset 0 0 20px rgba(0, 0, 0, 0.5),
+        var(--shadow-md);
+    border: 3px solid #2a1810;
+    border-radius: 12px;
+    max-width: 320px;
     width: 100%;
     transition: transform var(--transition-normal);
     margin: 0 auto;
+    position: relative;
+    transform: rotate(-1deg);
+}
+
+.single-polaroid::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 0, 0, 0.03) 2px,
+            rgba(0, 0, 0, 0.03) 4px
+        );
+    pointer-events: none;
+    border-radius: 12px;
+    opacity: 0.3;
 }
 
 .single-polaroid:hover {
-    transform: scale(1.05);
-    border-color: var(--color-red-primary);
-    box-shadow: var(--shadow-lg);
+    transform: rotate(0deg) scale(1.05);
+    border-color: var(--color-red-dark);
+    box-shadow: 
+        0 15px 40px rgba(185, 24, 24, 0.4),
+        inset 0 0 20px rgba(0, 0, 0, 0.5),
+        var(--shadow-lg);
 }
 
 .single-polaroid img {
     width: 100%;
-    height: 450px;
+    height: 320px;
     object-fit: cover;
-    margin-bottom: var(--spacing-md);
+    margin-bottom: var(--spacing-sm);
+    border-radius: 8px;
+    filter: 
+        sepia(0.3) 
+        contrast(1.1) 
+        brightness(0.9)
+        saturate(0.8);
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+.single-polaroid:hover img {
+    filter: 
+        sepia(0.2) 
+        contrast(1.15) 
+        brightness(0.95)
+        saturate(0.9);
 }
 
 .polaroid-caption {
     text-align: center;
     color: var(--color-text-secondary);
-    font-size: 1rem;
+    font-size: 0.85rem;
     letter-spacing: 1px;
-    margin-top: var(--spacing-sm);
+    margin-top: var(--spacing-xs);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    font-style: italic;
 }
 
 .single-place {
@@ -564,16 +739,18 @@ h1 {
 }
 
 .place-name {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     color: var(--color-red-secondary);
     margin-bottom: var(--spacing-xs);
     letter-spacing: 2px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
 }
 
 .place-description {
-    font-size: 1rem;
+    font-size: 0.9rem;
     color: var(--color-text-tertiary);
     line-height: 1.6;
+    font-style: italic;
 }
 
 /* ANIMAÇÕES */
@@ -632,16 +809,24 @@ h1 {
     }
     
     .single-polaroid {
-        max-width: 350px;
+        max-width: 280px;
     }
     
     .single-polaroid img {
-        height: 350px;
+        height: 280px;
     }
     
     .single-place {
         min-height: 400px;
         padding: var(--spacing-lg) 0;
+    }
+    
+    .polaroid-caption {
+        font-size: 0.8rem;
+    }
+    
+    .place-description {
+        font-size: 0.85rem;
     }
 }
 

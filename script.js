@@ -224,6 +224,12 @@ const visitMessages = [
 // Contador de visitas
 let visitCount = 0;
 
+// Histórico de navegação
+let galleryHistory = [];
+let galleryCurrentIndex = -1;
+let mapHistory = [];
+let mapCurrentIndex = -1;
+
 // Carregar contador de visitas
 function loadVisitCount() {
     const stored = localStorage.getItem('visitCount');
@@ -406,7 +412,24 @@ function openOracle() {
 
 // Abrir galeria (mostra 1 foto aleatória das 50)
 function openGallery() {
-    const randomPhoto = allPhotos[Math.floor(Math.random() * allPhotos.length)];
+    loadGalleryItem();
+    document.getElementById('galleryModal').classList.add('active');
+}
+
+function loadGalleryItem(photoIndex = null) {
+    let randomPhoto;
+    
+    if (photoIndex !== null) {
+        randomPhoto = allPhotos[photoIndex];
+    } else {
+        const randomIndex = Math.floor(Math.random() * allPhotos.length);
+        randomPhoto = allPhotos[randomIndex];
+        
+        // Adicionar ao histórico
+        galleryHistory = galleryHistory.slice(0, galleryCurrentIndex + 1);
+        galleryHistory.push(randomIndex);
+        galleryCurrentIndex = galleryHistory.length - 1;
+    }
     
     const gallery = document.getElementById('galleryGrid');
     gallery.innerHTML = `
@@ -415,8 +438,24 @@ function openGallery() {
             <p class="polaroid-caption">Uma memória especial nossa</p>
         </div>
     `;
-    
-    document.getElementById('galleryModal').classList.add('active');
+}
+
+function nextGallery() {
+    if (galleryCurrentIndex < galleryHistory.length - 1) {
+        // Navegar para frente no histórico
+        galleryCurrentIndex++;
+        loadGalleryItem(galleryHistory[galleryCurrentIndex]);
+    } else {
+        // Carregar nova foto aleatória
+        loadGalleryItem();
+    }
+}
+
+function prevGallery() {
+    if (galleryCurrentIndex > 0) {
+        galleryCurrentIndex--;
+        loadGalleryItem(galleryHistory[galleryCurrentIndex]);
+    }
 }
 
 // Abrir playlist
@@ -432,7 +471,24 @@ function openPlaylist() {
 
 // Abrir mapa (mostra 1 lugar aleatório dos 50)
 function openMap() {
-    const randomPlace = allPlaces[Math.floor(Math.random() * allPlaces.length)];
+    loadMapItem();
+    document.getElementById('mapModal').classList.add('active');
+}
+
+function loadMapItem(placeIndex = null) {
+    let randomPlace;
+    
+    if (placeIndex !== null) {
+        randomPlace = allPlaces[placeIndex];
+    } else {
+        const randomIndex = Math.floor(Math.random() * allPlaces.length);
+        randomPlace = allPlaces[randomIndex];
+        
+        // Adicionar ao histórico
+        mapHistory = mapHistory.slice(0, mapCurrentIndex + 1);
+        mapHistory.push(randomIndex);
+        mapCurrentIndex = mapHistory.length - 1;
+    }
     
     const modal = document.getElementById('mapModal');
     const content = document.querySelector('#mapModal .letter-content');
@@ -450,7 +506,24 @@ function openMap() {
     `;
     
     content.innerHTML = mapHtml;
-    modal.classList.add('active');
+}
+
+function nextMap() {
+    if (mapCurrentIndex < mapHistory.length - 1) {
+        // Navegar para frente no histórico
+        mapCurrentIndex++;
+        loadMapItem(mapHistory[mapCurrentIndex]);
+    } else {
+        // Carregar novo lugar aleatório
+        loadMapItem();
+    }
+}
+
+function prevMap() {
+    if (mapCurrentIndex > 0) {
+        mapCurrentIndex--;
+        loadMapItem(mapHistory[mapCurrentIndex]);
+    }
 }
 
 function closeModal(modalId) {

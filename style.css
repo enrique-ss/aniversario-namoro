@@ -90,7 +90,10 @@ body {
     height: 100%;
     object-fit: cover;
     opacity: 0.1;
-    filter: brightness(1);
+    filter: brightness(1.2);
+    position: fixed;
+    top: 0;
+    left: 0;
 }
 
 .floating-element {
@@ -161,7 +164,7 @@ body {
     filter: drop-shadow(var(--shadow-glow));
     cursor: pointer;
     letter-spacing: 2px;
-    animation: textBeatSlow 3s ease-in-out infinite;
+    animation: floatSlowText 3s ease-in-out infinite;
 }
 
 .countdown:hover {
@@ -190,7 +193,7 @@ body {
     position: absolute;
     width: 500px;
     height: 500px;
-    background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(0,0,0,0.15) 0%, transparent 70%);
     border-radius: 50%;
     z-index: -1;
 }
@@ -209,7 +212,7 @@ h1 {
     letter-spacing: 3px;
     margin-bottom: var(--spacing-sm);
     text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.9);
-    animation: textBeatSlow 3s ease-in-out infinite;
+    animation: floatSlowText 3s ease-in-out infinite;
     filter: drop-shadow(var(--shadow-glow));
 }
 
@@ -219,7 +222,7 @@ h1 {
     font-weight: 400;
     letter-spacing: 2px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-    animation: textBeatSlow 3s ease-in-out infinite;
+    animation: floatSlowText 3s ease-in-out infinite;
     filter: drop-shadow(var(--shadow-glow));
 }
 
@@ -233,8 +236,9 @@ h1 {
     z-index: 3;
     display: none;
     opacity: 0;
-    padding: var(--spacing-xl) var(--spacing-md);
+    padding: var(--spacing-md);
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .main-page.active {
@@ -248,6 +252,7 @@ h1 {
     display: grid;
     grid-template-columns: 1fr;
     gap: 40px;
+    padding-bottom: var(--spacing-xl);
 }
 
 /* Header */
@@ -264,7 +269,7 @@ h1 {
     text-align: center;
     letter-spacing: 4px;
     filter: drop-shadow(var(--shadow-glow-intense));
-    animation: textBeatSlow 3s ease-in-out infinite;
+    animation: floatSlowText 3s ease-in-out infinite;
     margin: 0;
     font-weight: 400;
     text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.9);
@@ -277,6 +282,7 @@ h1 {
     letter-spacing: 4px;
     margin-top: var(--spacing-sm);
     font-weight: 400;
+    animation: floatSlowText 3s ease-in-out infinite;
 }
 
 .time-greeting {
@@ -334,7 +340,7 @@ h1 {
     object-fit: contain;
     margin-bottom: var(--spacing-md);
     filter: drop-shadow(var(--shadow-white)) drop-shadow(var(--shadow-glow));
-    animation: iconFloat 3s ease-in-out infinite;
+    animation: floatSlow 3s ease-in-out infinite;
 }
 
 /* Envelope */
@@ -351,6 +357,7 @@ h1 {
     height: auto;
     filter: drop-shadow(var(--shadow-glow-strong));
     transition: all var(--transition-normal);
+    animation: floatSlow 3s ease-in-out infinite;
 }
 
 .envelope-card:hover .envelope-image {
@@ -393,7 +400,7 @@ h1 {
     color: var(--color-text-primary);
     filter: drop-shadow(var(--shadow-glow-intense));
     margin: var(--spacing-md) 0;
-    animation: textBeatSlow 3s ease-in-out infinite;
+    animation: floatSlowText 3s ease-in-out infinite;
     letter-spacing: 3px;
 }
 
@@ -533,14 +540,14 @@ h1 {
 }
 
 /* ANIMAÇÕES */
+@keyframes floatSlowText {
+    0%, 100% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-5px) scale(1.05); }
+}
+
 @keyframes floatSlow {
     0%, 100% { transform: translateY(0px) scale(1); }
     50% { transform: translateY(-15px) scale(1.15); }
-}
-
-@keyframes textBeatSlow {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
 }
 
 @keyframes heartbeat {
@@ -563,21 +570,6 @@ h1 {
 @keyframes dropDown {
     0% { top: -100px; opacity: 0.4; }
     100% { top: 100vh; opacity: 0.2; }
-}
-
-@keyframes iconFloat {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-}
-
-@keyframes heartbeatSlow {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.08); }
-}
-
-@keyframes heartbeatFast {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.25); }
 }
 
 /* RESPONSIVIDADE */
@@ -619,5 +611,4 @@ h1 {
     .page-title { font-size: 2rem; letter-spacing: 3px; }
     .page-subtitle { font-size: 1.5rem; }
     .gothic-icon-img { width: 70px; height: 70px; }
-    .pact-heart-icon { width: 90px; height: 90px; }
 }

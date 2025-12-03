@@ -698,6 +698,24 @@ input, textarea, select {
     font-style: italic;
 }
 
+.letter-content iframe {
+    width: 90% !important;     /* Menos horizontal */
+    height: 200px !important;  /* Mais vertical */
+    max-width: 350px;          /* Limita largura em telas grandes */
+    border-radius: 12px;
+}
+
+/*playlist*/
+.playlist-descricao {
+    margin-top: 25px;
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--color-text-secondary);
+    letter-spacing: 2px;
+    line-height: 1.6;
+    font-style: italic;
+}
+
 /* Map */
 .single-place {
     display: flex;
@@ -819,7 +837,10 @@ input, textarea, select {
     .container {
         padding: var(--spacing-sm);
     }
-    
+    .letter-content iframe {
+        width: 95% !important;
+        height: 230px !important; /* Aumenta mais um pouco para mobile */
+    }    
     .heart-image {
         max-width: 250px;
     }

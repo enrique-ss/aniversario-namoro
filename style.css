@@ -28,6 +28,7 @@
     --shadow-glow: 0 0 15px rgba(185, 24, 24, 0.6);
     --shadow-glow-strong: 0 0 30px rgba(185, 24, 24, 0.8);
     --shadow-glow-intense: 0 0 50px rgba(185, 24, 24, 0.9);
+    --shadow-white: 0 0 8px rgba(255, 255, 255, 0.5);
     
     /* Espaçamentos */
     --spacing-xs: 10px;
@@ -39,7 +40,7 @@
     
     /* Bordas e transições */
     --radius-sm: 3px;
-    --radius-md: 5px;
+    --radius-md: 15px;
     --radius-lg: 8px;
     --transition-fast: 0.2s ease;
     --transition-normal: 0.3s ease;
@@ -294,7 +295,7 @@ h1 {
     height: 80px;
     object-fit: contain;
     margin-bottom: var(--spacing-md);
-    filter: drop-shadow(var(--shadow-glow-intense)) drop-shadow(var(--shadow-glow));
+    filter: drop-shadow(var(--shadow-white)) drop-shadow(var(--shadow-glow));
     animation: floatSlow 3s ease-in-out infinite;
 }
 
@@ -387,40 +388,37 @@ h1 {
     animation: fadeIn var(--transition-normal);
 }
 
+/* Modal Content - Estilo Polaroid Horizontal */
 .modal-content {
-    background: linear-gradient(145deg, var(--color-bg-card), var(--color-bg-dark));
-    border: 4px double var(--color-red-primary);
-    border-radius: var(--radius-sm);
-    padding: 30px;
-    max-width: 600px;
+    background: linear-gradient(145deg, #1a1410, #0d0a08);
+    border: 3px solid #2a1810;
+    border-radius: 12px;
+    padding: var(--spacing-lg);
+    max-width: 700px;
     width: 100%;
     max-height: 80vh;
     overflow-y: auto;
     position: relative;
-    box-shadow: inset 0 0 30px rgba(185, 24, 24, 0.3), var(--shadow-lg);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(0, 0, 0, 0.5), var(--shadow-md);
 }
 
-.gothic-modal::before,
-.gothic-modal::after {
+.modal-content::before {
     content: '';
     position: absolute;
+    top: 0;
     left: 0;
     right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, transparent, var(--color-red-primary), transparent);
+    bottom: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.03) 2px, rgba(0, 0, 0, 0.03) 4px);
+    pointer-events: none;
+    border-radius: 12px;
+    opacity: 0.3;
 }
 
-.gothic-modal::before { top: 0; }
-.gothic-modal::after { bottom: 0; }
-
+/* Remover ornamentos desnecessários */
 .modal-header-ornament,
 .modal-footer-ornament {
-    text-align: center;
-    font-size: 1.5rem;
-    color: var(--color-red-primary);
-    filter: drop-shadow(var(--shadow-glow));
-    margin: var(--spacing-md) 0;
-    letter-spacing: var(--spacing-md);
+    display: none;
 }
 
 /* Botões de Fechar - Estilo Polaroid para TODOS os modais */
@@ -529,22 +527,26 @@ h1 {
     right: var(--spacing-md);
 }
 
-/* Conteúdos dos Modais */
+/* Conteúdos dos Modais - Estilo Polaroid */
 .letter-content {
     font-size: 1.1rem;
-    color: var(--color-text-primary);
+    color: var(--color-text-secondary);
     line-height: 1.8;
     text-align: left;
     letter-spacing: 1px;
+    position: relative;
+    z-index: 1;
 }
 
 .oracle-content {
     font-size: 1.5rem;
-    color: var(--color-text-primary);
+    color: var(--color-text-secondary);
     text-align: center;
     line-height: 1.8;
     padding: var(--spacing-md);
-    filter: drop-shadow(var(--shadow-glow));
+    filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.5));
+    position: relative;
+    z-index: 1;
 }
 
 /* Estilo Polaroid Base - usado em Gallery, Map, Oracle e Letter */

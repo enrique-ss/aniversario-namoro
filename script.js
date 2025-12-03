@@ -667,27 +667,14 @@ function loadPlaylistItem(songIndex = null) {
     }
     
     const content = document.querySelector('#playlistModal .letter-content');
-    const modal = document.querySelector('#playlistModal .modal-content');
 
-    // Limpa o conteúdo anterior
-    content.innerHTML = "";
-    
-    // Insere o iframe dentro das linhas
+    // Substitui completamente o conteúdo com o Polaroid
     content.innerHTML = `
-        <div style="display:flex; justify-content:center; align-items:center; min-height:200px;">
+        <div class="playlist-polaroid">
             ${randomSong.iframe}
+            <p class="playlist-descricao">${randomSong.descricao}</p>
         </div>
     `;
-
-    // Remove descrição antiga (se existir)
-    const oldDesc = document.querySelector(".playlist-descricao");
-    if (oldDesc) oldDesc.remove();
-
-    // Cria descrição FORA das linhas
-    const desc = document.createElement("p");
-    desc.className = "playlist-descricao";
-    desc.textContent = randomSong.descricao;
-    modal.appendChild(desc);
 }
 
 

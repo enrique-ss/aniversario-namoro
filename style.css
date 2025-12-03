@@ -200,7 +200,7 @@ h1 {
     padding: var(--spacing-md);
     overflow-y: auto;
     overflow-x: hidden;
-    -webkit-overflow-scrolling: touch; /* Smooth scroll no iOS */
+    -webkit-overflow-scrolling: touch;
 }
 
 .main-page.active {
@@ -218,7 +218,7 @@ h1 {
 }
 
 input, textarea, select {
-    font-size: 16px !important; /* Evita zoom no iOS */
+    font-size: 16px !important;
 }
 
 /* Header */
@@ -398,7 +398,7 @@ input, textarea, select {
     animation: fadeIn var(--transition-normal);
 }
 
-/* Modal Content - Estilo Polaroid Horizontal */
+/* Modal Content - Padrão */
 .modal-content {
     background: linear-gradient(145deg, #1a1410, #0d0a08);
     border: 3px solid #2a1810;
@@ -412,26 +412,30 @@ input, textarea, select {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(0, 0, 0, 0.5), var(--shadow-md);
 }
 
-.modal-content::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.03) 2px, rgba(0, 0, 0, 0.03) 4px);
-    pointer-events: none;
-    border-radius: 12px;
-    opacity: 0.3;
+/* Playlist Modal - Transparente */
+#playlistModal .modal-content {
+    background: transparent;
+    border: none;
+    padding: 0;
+    box-shadow: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
 }
 
-/* Remover ornamentos desnecessários */
+#playlistModal .letter-content {
+    background: none;
+    padding: 0;
+    width: 100%;
+}
+
 .modal-header-ornament,
 .modal-footer-ornament {
     display: none;
 }
 
-/* Botões de Fechar - Estilo Polaroid para TODOS os modais */
+/* Botões de Fechar */
 .close-btn {
     position: fixed;
     top: var(--spacing-md);
@@ -477,7 +481,7 @@ input, textarea, select {
     color: var(--color-red-primary);
 }
 
-/* Botões de Navegação - Estilo Polaroid */
+/* Botões de Navegação */
 .carousel-btn {
     position: fixed;
     top: 50%;
@@ -537,7 +541,7 @@ input, textarea, select {
     right: var(--spacing-md);
 }
 
-/* Conteúdos dos Modais - Estilo Polaroid */
+/* Conteúdos dos Modais */
 .letter-content {
     font-size: 1.1rem;
     color: var(--color-text-secondary);
@@ -559,8 +563,6 @@ input, textarea, select {
     margin: 0;
     padding: 0;
 }
-
-/* Substitua o .oracle-content existente por este código: */
 
 .oracle-content {
     font-size: 1.5rem;
@@ -594,41 +596,6 @@ input, textarea, select {
     );
     pointer-events: none;
     z-index: -1;
-}
-
-/* Estilo Polaroid Base - usado em Gallery, Map, Oracle e Letter */
-.polaroid-container {
-    background: linear-gradient(145deg, #1a1410, #0d0a08);
-    padding: var(--spacing-sm);
-    padding-bottom: var(--spacing-lg);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(0, 0, 0, 0.5), var(--shadow-md);
-    border: 3px solid #2a1810;
-    border-radius: 12px;
-    max-width: 320px;
-    width: 100%;
-    transition: transform var(--transition-normal);
-    margin: 0 auto;
-    position: relative;
-    transform: rotate(-1deg);
-}
-
-.polaroid-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.03) 2px, rgba(0, 0, 0, 0.03) 4px);
-    pointer-events: none;
-    border-radius: 12px;
-    opacity: 0.3;
-}
-
-.polaroid-container:hover {
-    transform: rotate(0deg) scale(1.05);
-    border-color: var(--color-red-dark);
-    box-shadow: 0 15px 40px rgba(185, 24, 24, 0.4), inset 0 0 20px rgba(0, 0, 0, 0.5), var(--shadow-lg);
 }
 
 /* Gallery */
@@ -698,30 +665,59 @@ input, textarea, select {
     font-style: italic;
 }
 
-.letter-content iframe {
-    width: 90% !important;     /* Menos horizontal */
-    height: 200px !important;  /* Mais vertical */
-    max-width: 350px;          /* Limita largura em telas grandes */
+/* Sinfonias - Formato Polaroid Horizontal */
+.playlist-polaroid {
+    background: linear-gradient(145deg, #1a1410, #0d0a08);
+    padding: var(--spacing-sm);
+    padding-bottom: var(--spacing-lg);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(0, 0, 0, 0.5), var(--shadow-md);
+    border: 3px solid #2a1810;
     border-radius: 12px;
+    max-width: 500px;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+    transform: rotate(-1deg);
+    transition: transform var(--transition-normal);
 }
 
-/*playlist*/
-.playlist-descricao {
-    margin-top: 25px;
-    text-align: center;
-    font-size: 1.2rem;
-    color: var(--color-text-secondary);
-    letter-spacing: 2px;
-    line-height: 1.6;
-    font-style: italic;
+.playlist-polaroid::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.03) 2px, rgba(0, 0, 0, 0.03) 4px);
+    pointer-events: none;
+    border-radius: 12px;
+    opacity: 0.3;
+}
+
+.playlist-polaroid:hover {
+    transform: rotate(0deg) scale(1.02);
+    border-color: var(--color-red-dark);
+    box-shadow: 0 15px 40px rgba(185, 24, 24, 0.4), inset 0 0 20px rgba(0, 0, 0, 0.5), var(--shadow-lg);
 }
 
 .spotify-embed {
     width: 100%;
-    max-width: 100%;
-    height: 180px;
+    height: 200px;
     border: 0;
     border-radius: 15px;
+    margin-bottom: var(--spacing-sm);
+}
+
+.playlist-descricao {
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+    letter-spacing: 1px;
+    line-height: 1.4;
+    font-style: italic;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    padding: 0 var(--spacing-xs);
+    margin-top: 0;
 }
 
 /* Map */
@@ -766,18 +762,10 @@ input, textarea, select {
 }
 
 @keyframes heartbeat {
-    0%, 100% { 
-        transform: scale(1); 
-    }
-    25% { 
-        transform: scale(1.25); 
-    }
-    50% { 
-        transform: scale(1); 
-    }
-    75% { 
-        transform: scale(1.25); 
-    }
+    0%, 100% { transform: scale(1); }
+    25% { transform: scale(1.25); }
+    50% { transform: scale(1); }
+    75% { transform: scale(1.25); }
 }
 
 @keyframes fadeIn {
@@ -793,7 +781,7 @@ input, textarea, select {
 }
 
 @media (max-width: 768px) {
-     body {
+    body {
         overflow: hidden;
     }
     
@@ -805,10 +793,10 @@ input, textarea, select {
     .heart-image {
         max-width: 280px;
     }
+    
     .countdown { font-size: 1.5rem; }
     h1 { font-size: 2.2rem; }
     .subtitle { font-size: 1rem; }
-    .heart-image { max-width: 350px; }
     .page-title { font-size: 2.5rem; letter-spacing: 4px; }
     .page-subtitle { font-size: 1.5rem; }
     .feature-title { font-size: 1.6rem; }
@@ -829,6 +817,8 @@ input, textarea, select {
     .carousel-btn { width: 50px; height: 50px; font-size: 2rem; }
     .carousel-btn.prev { left: var(--spacing-xs); }
     .carousel-btn.next { right: var(--spacing-xs); }
+    
+    .playlist-polaroid { max-width: 95%; }
 
     @keyframes floatSlow {
         0%, 100% { transform: scale(1); }
@@ -845,17 +835,11 @@ input, textarea, select {
     .container {
         padding: var(--spacing-sm);
     }
-     .spotify-embed {
-        width: 95%;
-        height: 220px;
-    }
-    .letter-content iframe {
-        width: 95% !important;
-        height: 230px !important; /* Aumenta mais um pouco para mobile */
-    }    
+    
     .heart-image {
         max-width: 250px;
     }
+    
     .countdown { font-size: 1rem; }
     h1 { font-size: 1.8rem; }
     .subtitle { font-size: 0.9rem; }

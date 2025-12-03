@@ -716,6 +716,14 @@ input, textarea, select {
     font-style: italic;
 }
 
+.spotify-embed {
+    width: 100%;
+    max-width: 100%;
+    height: 180px;
+    border: 0;
+    border-radius: 15px;
+}
+
 /* Map */
 .single-place {
     display: flex;
@@ -836,6 +844,10 @@ input, textarea, select {
 @media (max-width: 480px) {
     .container {
         padding: var(--spacing-sm);
+    }
+     .spotify-embed {
+        width: 95%;
+        height: 220px;
     }
     .letter-content iframe {
         width: 95% !important;

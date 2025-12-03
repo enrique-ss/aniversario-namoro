@@ -28,7 +28,6 @@
     --shadow-glow: 0 0 15px rgba(185, 24, 24, 0.6);
     --shadow-glow-strong: 0 0 30px rgba(185, 24, 24, 0.8);
     --shadow-glow-intense: 0 0 50px rgba(185, 24, 24, 0.9);
-    --shadow-white: 0 0 8px rgba(255, 255, 255, 0.5);
     
     /* Espaçamentos */
     --spacing-xs: 10px;
@@ -295,7 +294,7 @@ h1 {
     height: 80px;
     object-fit: contain;
     margin-bottom: var(--spacing-md);
-    filter: drop-shadow(var(--shadow-white)) drop-shadow(var(--shadow-glow));
+    filter: drop-shadow(var(--shadow-glow-intense)) drop-shadow(var(--shadow-glow));
     animation: floatSlow 3s ease-in-out infinite;
 }
 

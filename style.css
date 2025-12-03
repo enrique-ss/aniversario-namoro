@@ -232,7 +232,7 @@ h1 {
 
 .page-subtitle {
     font-size: 1.5rem;
-    color: var(--color-text-accent);
+    color: var(--color-red-secondary);
     text-align: center;
     letter-spacing: 4px;
     margin-top: var(--spacing-sm);

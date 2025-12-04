@@ -479,14 +479,24 @@ updateRelationshipTimer();
 // Clique no coração
 heart.addEventListener('click', function() {
     heart.classList.add('beating');
+    
+    setTimeout(() => {
+        // Esconder os outros elementos
+        document.querySelector('.countdown-container').style.opacity = '0';
+        document.querySelector('h1').style.opacity = '0';
+        document.querySelector('.subtitle').style.opacity = '0';
         
         setTimeout(() => {
-            firstPage.classList.add('hidden');
+            heart.classList.remove('beating');
+            heart.classList.add('exploding');
+            
             setTimeout(() => {
+                firstPage.classList.add('hidden');
                 mainPage.classList.add('active');
                 initMainPage();
-            }, 500);
-        }, 1600);
+            }, 800);
+        }, 0);
+    }, 1400);
 });
 
 // Efeito de digitação (typewriter)
@@ -570,7 +580,25 @@ function openOracle() {
 // Abrir galeria (mostra 1 foto aleatória das 50)
 function openGallery() {
     loadGalleryItem();
-    document.getElementById('galleryModal').classList.add('active');
+    const modal = document.getElementById('galleryModal');
+    modal.classList.add('active');
+    
+    // Fechar ao clicar na polaroid ou nos ornamentos
+    setTimeout(() => {
+        const polaroid = modal.querySelector('.single-polaroid');
+        const headerOrnament = modal.querySelector('.modal-header-ornament');
+        const footerOrnament = modal.querySelector('.modal-footer-ornament');
+        
+        if (polaroid) {
+            polaroid.addEventListener('click', () => closeModal('galleryModal'));
+        }
+        if (headerOrnament) {
+            headerOrnament.addEventListener('click', () => closeModal('galleryModal'));
+        }
+        if (footerOrnament) {
+            footerOrnament.addEventListener('click', () => closeModal('galleryModal'));
+        }
+    }, 100);
 }
 
 function loadGalleryItem(photoIndex = null) {
@@ -671,7 +699,25 @@ function prevPlaylist() {
 // Abrir mapa (mostra 1 lugar aleatório dos 50)
 function openMap() {
     loadMapItem();
-    document.getElementById('mapModal').classList.add('active');
+    const modal = document.getElementById('mapModal');
+    modal.classList.add('active');
+    
+    // Fechar ao clicar na polaroid ou nos ornamentos
+    setTimeout(() => {
+        const polaroid = modal.querySelector('.single-polaroid');
+        const headerOrnament = modal.querySelector('.modal-header-ornament');
+        const footerOrnament = modal.querySelector('.modal-footer-ornament');
+        
+        if (polaroid) {
+            polaroid.addEventListener('click', () => closeModal('mapModal'));
+        }
+        if (headerOrnament) {
+            headerOrnament.addEventListener('click', () => closeModal('mapModal'));
+        }
+        if (footerOrnament) {
+            footerOrnament.addEventListener('click', () => closeModal('mapModal'));
+        }
+    }, 100);
 }
 
 function loadMapItem(placeIndex = null) {
@@ -718,14 +764,19 @@ function prevMap() {
 }
 
 function closeModal(modalId) {
-    document.getElementById(modalId).classList.remove('active');
+    const modal = document.getElementById(modalId);
+    modal.classList.add('closing');
+    setTimeout(() => {
+        modal.classList.remove('active', 'closing');
+    }, 300);
 }
 
 // Fechar modal clicando fora
 document.querySelectorAll('.modal').forEach(modal => {
     modal.addEventListener('click', function(e) {
         if (e.target === this) {
-            this.classList.remove('active');
+            const modalId = this.id;
+            closeModal(modalId);
         }
     });
 });

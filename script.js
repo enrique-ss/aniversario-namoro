@@ -582,7 +582,6 @@ function loadGalleryItem(photoIndex = null) {
         const randomIndex = Math.floor(Math.random() * allPhotos.length);
         randomPhoto = allPhotos[randomIndex];
         
-        // Adicionar ao histórico
         galleryHistory = galleryHistory.slice(0, galleryCurrentIndex + 1);
         galleryHistory.push(randomIndex);
         galleryCurrentIndex = galleryHistory.length - 1;
@@ -591,8 +590,11 @@ function loadGalleryItem(photoIndex = null) {
     const gallery = document.getElementById('galleryGrid');
     gallery.innerHTML = `
         <img src="${randomPhoto.foto}" alt="Nossa memória" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22300%22%3E%3Crect fill=%22%23333%22 width=%22300%22 height=%22300%22/%3E%3Ctext fill=%22%23666%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 font-size=%2230%22%3E❤️%3C/text%3E%3C/svg%3E'">
-        <p class="polaroid-caption">${randomPhoto.descricao}</p>
+        <p class="polaroid-caption"></p>
     `;
+    
+    const caption = gallery.querySelector('.polaroid-caption');
+    typeWriter(caption, randomPhoto.descricao, 20);
 }
 
 function nextGallery() {
@@ -639,15 +641,16 @@ function loadPlaylistItem(songIndex = null) {
     
     const content = document.querySelector('#playlistModal .letter-content');
 
-    // Substitui completamente o conteúdo com o Polaroid
     content.innerHTML = `
         <div class="playlist-polaroid">
             ${randomSong.iframe}
-            <p class="playlist-descricao">${randomSong.descricao}</p>
+            <p class="playlist-descricao"></p>
         </div>
     `;
+    
+    const descricao = content.querySelector('.playlist-descricao');
+    typeWriter(descricao, randomSong.descricao, 20);
 }
-
 
 function nextPlaylist() {
     if (playlistCurrentIndex < playlistHistory.length - 1) {
@@ -680,7 +683,6 @@ function loadMapItem(placeIndex = null) {
         const randomIndex = Math.floor(Math.random() * allPlaces.length);
         randomPlace = allPlaces[randomIndex];
         
-        // Adicionar ao histórico
         mapHistory = mapHistory.slice(0, mapCurrentIndex + 1);
         mapHistory.push(randomIndex);
         mapCurrentIndex = mapHistory.length - 1;
@@ -690,8 +692,11 @@ function loadMapItem(placeIndex = null) {
     
     content.innerHTML = `
         <img src="${randomPlace.foto}" alt="Lugar especial" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22300%22%3E%3Crect fill=%22%23333%22 width=%22300%22 height=%22300%22/%3E%3Ctext fill=%22%23666%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 font-size=%2230%22%3E📍%3C/text%3E%3C/svg%3E'">
-        <p class="polaroid-caption">${randomPlace.descricao}</p>
+        <p class="polaroid-caption"></p>
     `;
+    
+    const caption = content.querySelector('.polaroid-caption');
+    typeWriter(caption, randomPlace.descricao, 20);
 }
 
 function nextMap() {

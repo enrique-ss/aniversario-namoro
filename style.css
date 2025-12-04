@@ -341,6 +341,7 @@ h1 {
     justify-content: center;
     padding: var(--spacing-md);
     overflow: hidden;
+    flex-direction: column;
 }
 
 .modal.active {
@@ -424,6 +425,14 @@ h1 {
     min-height: 500px;
 }
 
+#galleryModal .modal-header-ornament,
+#galleryModal .modal-footer-ornament,
+#mapModal .modal-header-ornament,
+#mapModal .modal-footer-ornament {
+    position: relative;
+    z-index: 10;
+}
+
 .single-polaroid {
     background: linear-gradient(145deg, #1a1410, #0d0a08);
     padding: var(--spacing-sm);
@@ -492,7 +501,7 @@ h1 {
 
 .playlist-descricao {
     text-align: center;
-    font-size: 0.85rem;
+    font-size: 1.1rem;
     color: var(--color-text-secondary);
     letter-spacing: 1px;
     line-height: 1.4;

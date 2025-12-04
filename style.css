@@ -456,7 +456,7 @@ h1 {
 .polaroid-caption {
     text-align: center;
     color: var(--color-text-secondary);
-    font-size: 0.85rem;
+    font-size: 1.1rem;
     letter-spacing: 1px;
     margin-top: var(--spacing-xs);
     font-style: italic;

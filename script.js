@@ -590,10 +590,8 @@ function loadGalleryItem(photoIndex = null) {
     
     const gallery = document.getElementById('galleryGrid');
     gallery.innerHTML = `
-        <div class="single-polaroid">
-            <img src="${randomPhoto.foto}" alt="Nossa memória" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22300%22%3E%3Crect fill=%22%23333%22 width=%22300%22 height=%22300%22/%3E%3Ctext fill=%22%23666%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 font-size=%2230%22%3E❤️%3C/text%3E%3C/svg%3E'">
-            <p class="polaroid-caption">${randomPhoto.descricao}</p>
-        </div>
+        <img src="${randomPhoto.foto}" alt="Nossa memória" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22300%22%3E%3Crect fill=%22%23333%22 width=%22300%22 height=%22300%22/%3E%3Ctext fill=%22%23666%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 font-size=%2230%22%3E❤️%3C/text%3E%3C/svg%3E'">
+        <p class="polaroid-caption">${randomPhoto.descricao}</p>
     `;
 }
 
@@ -688,19 +686,12 @@ function loadMapItem(placeIndex = null) {
         mapCurrentIndex = mapHistory.length - 1;
     }
     
-    const modal = document.getElementById('mapModal');
     const content = document.querySelector('#mapModal .letter-content');
     
-    let mapHtml = `
-        <div class="single-place">
-            <div class="single-polaroid">
-                <img src="${randomPlace.foto}" alt="Lugar especial" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22300%22%3E%3Crect fill=%22%23333%22 width=%22300%22 height=%22300%22/%3E%3Ctext fill=%22%23666%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 font-size=%2230%22%3E📍%3C/text%3E%3C/svg%3E'">
-                <p class="polaroid-caption">${randomPlace.descricao}</p>
-            </div>
-        </div>
+    content.innerHTML = `
+        <img src="${randomPlace.foto}" alt="Lugar especial" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22300%22%3E%3Crect fill=%22%23333%22 width=%22300%22 height=%22300%22/%3E%3Ctext fill=%22%23666%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 font-size=%2230%22%3E📍%3C/text%3E%3C/svg%3E'">
+        <p class="polaroid-caption">${randomPlace.descricao}</p>
     `;
-    
-    content.innerHTML = mapHtml;
 }
 
 function nextMap() {

@@ -481,13 +481,18 @@ heart.addEventListener('click', function() {
     heart.classList.add('beating');
     
     setTimeout(() => {
-        // Esconder os outros elementos
+        // Adicionar brilho pulsante e aumentar o coração
+        heart.classList.add('pulsing');
+        heart.style.maxWidth = '350px'; // Aumenta o tamanho
+        
+        // Ativar vignette E esconder os outros elementos IMEDIATAMENTE
+        document.getElementById('vignette').classList.add('active');
         document.querySelector('.countdown-container').style.opacity = '0';
         document.querySelector('h1').style.opacity = '0';
         document.querySelector('.subtitle').style.opacity = '0';
         
         setTimeout(() => {
-            heart.classList.remove('beating');
+            heart.classList.remove('beating', 'pulsing');
             heart.classList.add('exploding');
             
             setTimeout(() => {
@@ -495,8 +500,8 @@ heart.addEventListener('click', function() {
                 mainPage.classList.add('active');
                 initMainPage();
             }, 800);
-        }, 0);
-    }, 1400);
+        }, 1200); // REDUZIDO DE 2000 PARA 1200
+    }, 1600);
 });
 
 // Efeito de digitação (typewriter)

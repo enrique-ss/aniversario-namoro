@@ -582,6 +582,10 @@ h1 {
     75% { transform: scale(1.35); }
 }
 
+.heart-image.beating {
+    animation: heartbeat 0.4s ease-in-out infinite !important;
+}
+
 @keyframes explode {
     0% { transform: scale(1); opacity: 1; }
     50% { transform: scale(1.5); opacity: 0.8; }
@@ -591,6 +595,43 @@ h1 {
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
+}
+
+@keyframes pulseGlow {
+    0%, 100% { 
+        filter: drop-shadow(0 0 40px rgba(185, 24, 24, 0.8)) 
+                drop-shadow(0 0 80px rgba(185, 24, 24, 0.6)); 
+    }
+    50% { 
+        filter: drop-shadow(0 0 100px rgba(185, 24, 24, 1)) 
+                drop-shadow(0 0 150px rgba(255, 0, 0, 1))
+                drop-shadow(0 0 200px rgba(255, 0, 0, 0.8)); 
+    }
+}
+
+.heart-image.pulsing {
+    animation: heartbeat 0.4s ease-in-out infinite, pulseGlow 0.3s ease-in-out infinite !important;
+}
+
+@keyframes vignette {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+.vignette-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, transparent 30%, rgba(0, 0, 0, 0.9) 100%);
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0;
+}
+
+.vignette-overlay.active {
+    animation: vignette 0.6s ease forwards;
 }
 
 /* RESPONSIVO */

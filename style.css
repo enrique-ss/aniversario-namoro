@@ -225,7 +225,7 @@ h1.hiding {
 }
 
 .time-greeting {
-    font-size: 0.9rem;
+    font-size: 1rem;
     color: var(--color-text-tertiary);
     letter-spacing: 2px;
     margin-top: var(--spacing-xs);
@@ -338,7 +338,7 @@ h1.hiding {
 }
 
 .visit-counter {
-    font-size: 0.9rem;
+    font-size: 1rem;
     color: var(--color-text-tertiary);
     margin-top: var(--spacing-md);
     letter-spacing: 2px;

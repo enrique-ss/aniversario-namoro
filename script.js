@@ -267,7 +267,7 @@ const allPlaces = [
     {descricao: 'Tava muito bom, mas sofremos pra comer dois', foto: 'lugares/15.jpg'},
     {descricao: 'Saudades dessa paz', foto: 'lugares/16.jpg'},
     {descricao: 'Oi', foto: 'lugares/17.jpg'},
-    {descricao: 'Sempre pensando em um lugar novo pra te levar. Meu sonho era te levar aqui, mesmo que fosse simples, minha piratinha', foto: 'lugares/18.jpg'},
+    {descricao: 'Meu objetivo era te levar aqui, mesmo que fosse simples, minha piratinha', foto: 'lugares/18.jpg'},
     {descricao: 'O rolê foi legal mas a pizza tava um pouco queimada', foto: 'lugares/19.jpg'},
     {descricao: 'Amo rolês noturnos contigo', foto: 'lugares/20.jpg'},
     {descricao: 'Obrigado por não deixar passar em branco', foto: 'lugares/21.jpg'},
@@ -297,8 +297,8 @@ const allPlaces = [
     {descricao: 'Como será que teria sido se esse ideia tivesse dado certo?', foto: 'lugares/45.jpg'},
     {descricao: 'Foi muito bom enquanto durou', foto: 'lugares/46.jpg'},
     {descricao: 'Nosso sofazinho. Uma das nossas primeiras "grandes" conquistas.', foto: 'lugares/47.jpg'},
-    {descricao: 'Obrigado por tudo. Por ter ajudado a arrumar inumeras vezes, e agora, por estar me ajudando a desarrumar. Um dia estaremos arrumando denovo', foto: 'lugares/48.jpg'},
-    {descricao: 'Eu te amo. Desculpa te fazer sofrer com essa mudança. Mas eu confio que valeu a pena. Sem dor, sem ganha. E depois de tanta dor, teremos muito ganho.', foto: 'lugares/49.jpg'},
+    {descricao: 'Obrigado por ter ajudado a arrumar a casa, e agora, por estar me ajudando a desarrumar. Logo estaremos arrumando denovo', foto: 'lugares/48.jpg'},
+    {descricao: 'Eu te amo. Desculpa te fazer sofrer com essa mudança. Mas tudo valerá a pena.', foto: 'lugares/49.jpg'},
     {descricao: 'Lugar lindo com namorada linda', foto: 'lugares/50.jpg'}
 ];
 

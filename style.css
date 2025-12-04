@@ -16,7 +16,6 @@
     --color-bg-card: rgba(20, 0, 0, 0.85);
     --color-bg-card-hover: rgba(30, 0, 0, 0.9);
     --color-border: rgba(185, 24, 24, 0.4);
-    --color-border-strong: rgba(185, 24, 24, 0.7);
     --color-border-intense: rgba(185, 24, 24, 1);
     --shadow-md: 0 4px 20px rgba(185, 24, 24, 0.4);
     --shadow-lg: 0 8px 40px rgba(185, 24, 24, 0.5);
@@ -53,8 +52,7 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    overflow-x: hidden;
-    overflow-y: hidden;
+    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -68,7 +66,6 @@ body {
     width: 100%;
     height: 100%;
     z-index: 0;
-    overflow: hidden;
 }
 
 .background-texture img {
@@ -120,7 +117,6 @@ body {
     margin: 0 auto var(--spacing-2xl);
     animation: floatSlow 3s ease-in-out infinite;
     cursor: pointer;
-    position: relative;
 }
 
 .heart-image.beating {
@@ -177,7 +173,6 @@ h1 {
     max-width: 1000px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr;
     gap: 40px;
     padding-bottom: var(--spacing-xl);
 }
@@ -402,15 +397,7 @@ h1 {
     background-image: repeating-linear-gradient(transparent, transparent calc(3.2em - 1px), rgba(185, 24, 24, 0.3) calc(3.2em - 1px), rgba(185, 24, 24, 0.3) 3.2em);
 }
 
-/* GALERIA */
-.gallery-grid, .single-place {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: var(--spacing-xl) 0;
-    min-height: 500px;
-}
-
+/* POLAROIDS */
 .single-polaroid {
     background: linear-gradient(145deg, #1a1410, #0d0a08);
     padding: var(--spacing-sm);
@@ -419,7 +406,6 @@ h1 {
     border: 3px solid #2a1810;
     border-radius: 12px;
     max-width: 420px;
-    width: 100%;
     transition: transform var(--transition-normal);
     transform: rotate(-1deg);
 }
@@ -449,29 +435,8 @@ h1 {
     font-style: italic;
 }
 
-/* GALERIA - ornamentos fora do polaroid */
-#galleryModal .modal-content {
-    background: transparent;
-    border: none;
-    padding: 0;
-    box-shadow: none;
-    max-width: 600px;
-    overflow: visible;
-}
-
-#galleryModal .gallery-grid {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 0;
-    min-height: auto;
-}
-
-#galleryModal .polaroid-caption {
-    text-align: center;
-}
-
-/* MAPA - ornamentos fora do polaroid */
+/* GALERIA E MAPA */
+#galleryModal .modal-content,
 #mapModal .modal-content {
     background: transparent;
     border: none;
@@ -479,18 +444,6 @@ h1 {
     box-shadow: none;
     max-width: 600px;
     overflow: visible;
-}
-
-#mapModal .letter-content {
-    background: none;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-#mapModal .polaroid-caption {
-    text-align: center;
 }
 
 #galleryModal .modal-header-ornament,
@@ -501,6 +454,48 @@ h1 {
 #galleryModal .modal-footer-ornament,
 #mapModal .modal-footer-ornament {
     margin-top: var(--spacing-xs);
+}
+
+#galleryModal .single-polaroid,
+#mapModal .single-polaroid {
+    max-width: 520px;
+    width: fit-content;
+    display: inline-block;
+}
+
+#galleryModal .single-polaroid img,
+#mapModal .single-polaroid img {
+    max-height: 65vh;
+    max-width: 90vw;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
+#galleryModal .polaroid-caption,
+#mapModal .polaroid-caption {
+    text-align: center;
+    word-wrap: break-word;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    width: 100%;
+}
+
+#galleryModal .gallery-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    min-height: auto;
+}
+
+#mapModal .letter-content {
+    background: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 /* PLAYLIST */
@@ -540,7 +535,6 @@ h1 {
     font-style: italic;
 }
 
-/* PLAYLIST - ajustar estrutura */
 #playlistModal .modal-content {
     background: transparent;
     border: none;
@@ -556,19 +550,14 @@ h1 {
     width: 100%;
 }
 
-#playlistModal .playlist-descricao {
-    text-align: center;
-    width: 100%;
-}
-
 /* ANIMAÇÕES */
 @keyframes floatSlowText {
-    0%, 100% { transform: translateY(0px) scale(1); }
+    0%, 100% { transform: translateY(0) scale(1); }
     50% { transform: translateY(-5px) scale(1.05); }
 }
 
 @keyframes floatSlow {
-    0%, 100% { transform: translateY(0px) scale(1); }
+    0%, 100% { transform: translateY(0) scale(1); }
     50% { transform: translateY(-15px) scale(1.15); }
 }
 
@@ -587,8 +576,6 @@ h1 {
 /* RESPONSIVO */
 @media (max-width: 1024px) {
     .cards-grid { grid-template-columns: repeat(2, 1fr); }
-    .spotify-embed { height: 260px; }
-    .playlist-polaroid { max-width: 450px; }
 }
 
 @media (max-width: 768px) {
@@ -600,10 +587,20 @@ h1 {
     .page-title { font-size: 2.5rem; }
     .page-subtitle { font-size: 1.5rem; }
     .cards-grid { grid-template-columns: 1fr; }
-    .spotify-embed { height: 260px; }
     .playlist-polaroid { max-width: 450px; padding: 12px; }
     .single-polaroid { max-width: 90vw; }
     .single-polaroid img { max-height: 70vh; }
+    
+    #galleryModal .single-polaroid,
+    #mapModal .single-polaroid {
+        max-width: 90vw;
+    }
+    
+    #galleryModal .single-polaroid img,
+    #mapModal .single-polaroid img {
+        max-height: 60vh;
+        max-width: 85vw;
+    }
     
     @keyframes floatSlow {
         0%, 100% { transform: scale(1); }
@@ -622,6 +619,17 @@ h1 {
     .playlist-descricao { font-size: 0.7rem; }
     .single-polaroid { max-width: 92vw; }
     .single-polaroid img { max-height: 65vh; }
+    
+    #galleryModal .single-polaroid,
+    #mapModal .single-polaroid {
+        max-width: 92vw;
+    }
+    
+    #galleryModal .single-polaroid img,
+    #mapModal .single-polaroid img {
+        max-height: 55vh;
+        max-width: 90vw;
+    }
 }
 
 @media (max-width: 380px) {

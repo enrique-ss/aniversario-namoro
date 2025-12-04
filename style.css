@@ -383,26 +383,6 @@ h1 {
     margin-top: var(--spacing-lg);
 }
 
-/* MODAL PLAYLIST */
-#playlistModal .modal-content {
-    background: linear-gradient(145deg, #1a1410, #0d0a08);
-    border: 3px solid #2a1810;
-    border-radius: 12px;
-    padding: var(--spacing-lg);
-    max-width: 700px;
-    width: 100%;
-    max-height: 80vh;
-    overflow-y: auto;
-    overflow-x: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(0, 0, 0, 0.5);
-}
-
-#playlistModal .letter-content {
-    background: none;
-    padding: 0;
-    width: 100%;
-}
-
 /* CONTEÚDOS */
 .letter-content {
     font-size: 1.1rem;
@@ -469,16 +449,14 @@ h1 {
     font-style: italic;
 }
 
-/* GALERIA - ornamentos dentro do polaroid */
+/* GALERIA - ornamentos fora do polaroid */
 #galleryModal .modal-content {
     background: transparent;
     border: none;
     padding: 0;
     box-shadow: none;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--spacing-md);
+    max-width: 600px;
+    overflow: visible;
 }
 
 #galleryModal .gallery-grid {
@@ -493,16 +471,14 @@ h1 {
     text-align: center;
 }
 
-/* MAPA - ornamentos dentro do polaroid */
+/* MAPA - ornamentos fora do polaroid */
 #mapModal .modal-content {
     background: transparent;
     border: none;
     padding: 0;
     box-shadow: none;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--spacing-md);
+    max-width: 600px;
+    overflow: visible;
 }
 
 #mapModal .letter-content {
@@ -515,6 +491,16 @@ h1 {
 
 #mapModal .polaroid-caption {
     text-align: center;
+}
+
+#galleryModal .modal-header-ornament,
+#mapModal .modal-header-ornament {
+    margin-bottom: var(--spacing-xs);
+}
+
+#galleryModal .modal-footer-ornament,
+#mapModal .modal-footer-ornament {
+    margin-top: var(--spacing-xs);
 }
 
 /* PLAYLIST */
@@ -556,29 +542,18 @@ h1 {
 
 /* PLAYLIST - ajustar estrutura */
 #playlistModal .modal-content {
-    background: linear-gradient(145deg, #1a1410, #0d0a08);
-    border: 3px solid #2a1810;
-    border-radius: 12px;
-    padding: var(--spacing-lg);
-    max-width: 700px;
-    width: 100%;
-    max-height: 80vh;
-    overflow-y: auto;
-    overflow-x: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(0, 0, 0, 0.5);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--spacing-md);
+    background: transparent;
+    border: none;
+    padding: 0;
+    box-shadow: none;
+    max-width: 600px;
+    overflow: visible;
 }
 
 #playlistModal .letter-content {
     background: none;
     padding: 0;
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
 #playlistModal .playlist-descricao {

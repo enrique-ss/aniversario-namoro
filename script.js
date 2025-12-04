@@ -416,15 +416,25 @@ function loadVisitCount() {
     const stored = localStorage.getItem('visitCount');
     visitCount = stored ? parseInt(stored) : 0;
     
-    // Reiniciar no 100
     if (visitCount >= 100) {
-        visitCount = 0; // Reseta para 0, depois incrementa para 1
+        visitCount = 0;
     }
     
     visitCount++;
-    
     localStorage.setItem('visitCount', visitCount);
-    updateVisitCounter();
+    
+    console.log('visitCount:', visitCount); // TESTE
+    console.log('Mensagem:', visitMessages[visitCount - 1]); // TESTE
+    
+    const counter = document.getElementById('visitCounter');
+    console.log('Elemento counter:', counter); // TESTE
+    
+    if (counter) {
+        counter.textContent = visitMessages[visitCount - 1];
+        console.log('Texto atualizado!'); // TESTE
+    } else {
+        console.log('Elemento não encontrado!'); // TESTE
+    }
 }
 
 function updateVisitCounter() {
@@ -477,31 +487,45 @@ updateCountdown();
 updateRelationshipTimer();
 
 // Clique no coração
+// Clique no coração
 heart.addEventListener('click', function() {
+    // Desabilitar cliques adicionais
+    heart.style.pointerEvents = 'none';
+    
+    // Fase 1: Batidas do coração (2 segundos)
     heart.classList.add('beating');
     
     setTimeout(() => {
-        // Adicionar brilho pulsante e aumentar o coração
-        heart.classList.add('pulsing');
-        heart.style.maxWidth = '350px'; // Aumenta o tamanho
+        heart.classList.remove('beating');
         
-        // Ativar vignette E esconder os outros elementos IMEDIATAMENTE
+        // Fase 2: Crescimento + brilho + esconder elementos (1.5 segundos)
+        heart.classList.add('pulsing');
+        
+        // Esconder outros elementos com as classes de transição
+        document.querySelector('.countdown-container').classList.add('hiding');
+        document.querySelector('h1').classList.add('hiding');
+        document.querySelector('.subtitle').classList.add('hiding');
+        
+        // Ativar vignette
         document.getElementById('vignette').classList.add('active');
-        document.querySelector('.countdown-container').style.opacity = '0';
-        document.querySelector('h1').style.opacity = '0';
-        document.querySelector('.subtitle').style.opacity = '0';
         
         setTimeout(() => {
-            heart.classList.remove('beating', 'pulsing');
+            // Fase 3: Explosão (0.8 segundos)
+            heart.classList.remove('pulsing');
             heart.classList.add('exploding');
             
             setTimeout(() => {
+                // Transição para página principal
                 firstPage.classList.add('hidden');
                 mainPage.classList.add('active');
-                initMainPage();
+                
+                // ESPERA A ANIMAÇÃO TERMINAR ANTES DE INICIALIZAR
+                setTimeout(() => {
+                    initMainPage();
+                }, 900); // Espera 900ms para garantir que o fadeIn (800ms) terminou
             }, 800);
-        }, 1200); // REDUZIDO DE 2000 PARA 1200
-    }, 1600);
+        }, 1500);
+    }, 2000);
 });
 
 // Efeito de digitação (typewriter)

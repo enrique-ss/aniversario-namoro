@@ -423,17 +423,9 @@ function loadVisitCount() {
     visitCount++;
     localStorage.setItem('visitCount', visitCount);
     
-    console.log('visitCount:', visitCount); // TESTE
-    console.log('Mensagem:', visitMessages[visitCount - 1]); // TESTE
-    
     const counter = document.getElementById('visitCounter');
-    console.log('Elemento counter:', counter); // TESTE
-    
     if (counter) {
         counter.textContent = visitMessages[visitCount - 1];
-        console.log('Texto atualizado!'); // TESTE
-    } else {
-        console.log('Elemento não encontrado!'); // TESTE
     }
 }
 
@@ -474,18 +466,13 @@ function updateRelationshipTimer() {
     document.getElementById('relationshipTimer').textContent = `${days} dias`;
 }
 
-// Inicializar ao carregar a página principal
-function initMainPage() {
-    updateTimeGreeting();
-    loadVisitCount();
-}
-
 // Atualizar a cada segundo
 setInterval(updateCountdown, 1000);
 setInterval(updateRelationshipTimer, 1000);
 updateCountdown();
 updateRelationshipTimer();
 
+// Clique no coração
 // Clique no coração
 // Clique no coração
 heart.addEventListener('click', function() {
@@ -519,10 +506,11 @@ heart.addEventListener('click', function() {
                 firstPage.classList.add('hidden');
                 mainPage.classList.add('active');
                 
-                // ESPERA A ANIMAÇÃO TERMINAR ANTES DE INICIALIZAR
-                setTimeout(() => {
-                    initMainPage();
-                }, 900); // Espera 900ms para garantir que o fadeIn (800ms) terminou
+                // USA requestAnimationFrame para não travar
+                requestAnimationFrame(() => {
+                    updateTimeGreeting();
+                    loadVisitCount();
+                });
             }, 800);
         }, 1500);
     }, 2000);

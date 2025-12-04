@@ -12,11 +12,11 @@ const relationshipStart = new Date('2023-12-04T15:00:00').getTime();
 // 50 Músicas do Spotify (com embed iframe) — versão mobile
 const spotifySongs = [
     {iframe: '<iframe class="spotify-embed" src="https://open.spotify.com/embed/track/0utqWsykxgSFqI1ODE9UqN"></iframe>', descricao: 'Descrição da música 1'},
-    {iframe: '<iframe class="spotify-embed" src="https://open.spotify.com/embed/track/0utqWsykxgSFqI1ODE9UqN"></iframe>', descricao: 'Descrição da música 2'},
-    {iframe: '<iframe class="spotify-embed" src="https://open.spotify.com/embed/track/0utqWsykxgSFqI1ODE9UqN"></iframe>', descricao: 'Descrição da música 3'},
-    {iframe: '<iframe class="spotify-embed" src="https://open.spotify.com/embed/track/0utqWsykxgSFqI1ODE9UqN"></iframe>', descricao: 'Descrição da música 4'},
-    {iframe: '<iframe class="spotify-embed" src="https://open.spotify.com/embed/track/0utqWsykxgSFqI1ODE9UqN"></iframe>', descricao: 'Descrição da música 5'},
-    {iframe: '<iframe class="spotify-embed" src="https://open.spotify.com/embed/track/0utqWsykxgSFqI1ODE9UqN"></iframe>', descricao: 'Descrição da música 6'},
+    {iframe: '<iframe class="spotify-embed" src="https://open.spotify.com/embed/track/37vVp2sWHuuIBOSl1NswP6?utm_source=generator"></iframe>', descricao: 'Descrição da música 2'},
+    {iframe: '<iframe class="spotify-embed" src="https://open.spotify.com/embed/track/0MKaYAce0M8ouwSTVw2JB7?utm_source=generator"></iframe>', descricao: 'Descrição da música 3'},
+    {iframe: '<iframe class="spotify-embed" src="https://open.spotify.com/embed/track/5XeFesFbtLpXzIVDNQP22n?utm_source=generator"></iframe>', descricao: 'Descrição da música 4'},
+    {iframe: '<iframe class="spotify-embed" src="https://open.spotify.com/embed/track/5o2rYExTsDD5Xj2WlBU3Ik?utm_source=generator"></iframe>', descricao: 'Descrição da música 5'},
+    {iframe: '<iframe class="spotify-embed" src="https://open.spotify.com/embed/track/0F845nujLVqCb0XMZCh5Pc?utm_source=generator"></iframe>', descricao: 'Foi a última música que te mostrei na nossa casa.'},
     {iframe: '<iframe class="spotify-embed" src="https://open.spotify.com/embed/track/0utqWsykxgSFqI1ODE9UqN"></iframe>', descricao: 'Descrição da música 7'},
     {iframe: '<iframe class="spotify-embed" src="https://open.spotify.com/embed/track/0utqWsykxgSFqI1ODE9UqN"></iframe>', descricao: 'Descrição da música 8'},
     {iframe: '<iframe class="spotify-embed" src="https://open.spotify.com/embed/track/0utqWsykxgSFqI1ODE9UqN"></iframe>', descricao: 'Descrição da música 9'},
@@ -451,21 +451,8 @@ function updateTimeGreeting() {
 
 // Atualizar cronômetro até a data
 function updateCountdown() {
-    const now = new Date().getTime();
-    const distance = targetDate - now;
-
-    if (distance < 0) {
-        countdownElement.textContent = "00:00:00:00";
+    countdownElement.textContent = "Feliz Dois Anos, meu amor!";
         return;
-    }
-
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-    countdownElement.textContent = 
-        `${String(days).padStart(2, '0')}:${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 }
 
 // Atualizar cronômetro do relacionamento
@@ -491,20 +478,7 @@ updateRelationshipTimer();
 
 // Clique no coração
 heart.addEventListener('click', function() {
-    const now = new Date().getTime();
-    
-    if (now > targetDate) {
-        heart.classList.add('beating');
-        
-        setTimeout(() => {
-            alert('Tá ansiosa?');
-        }, 2000);
-        
-        setTimeout(() => {
-            heart.classList.remove('beating');
-        }, 3000);
-    } else {
-        heart.classList.add('beating');
+    heart.classList.add('beating');
         
         setTimeout(() => {
             firstPage.classList.add('hidden');
@@ -513,7 +487,6 @@ heart.addEventListener('click', function() {
                 initMainPage();
             }, 500);
         }, 1600);
-    }
 });
 
 // Efeito de digitação (typewriter)

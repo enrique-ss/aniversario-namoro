@@ -446,6 +446,7 @@ h1.hiding {
     object-fit: contain;
     margin-bottom: var(--spacing-sm);
     border-radius: 8px;
+    box-shadow: 0 0px 15px rgba(218, 6, 6, 0.8), inset 0 0 20px rgba(0, 0, 0, 0.5);
     filter: sepia(0.3) contrast(1.1) brightness(0.9) saturate(0.8);
 }
 
@@ -510,7 +511,6 @@ h1.hiding {
     flex-direction: column;
     align-items: center;
     padding: 0;
-    min-height: auto;
 }
 
 #mapModal .letter-content {
